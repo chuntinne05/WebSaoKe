@@ -6,6 +6,7 @@ class SearchEngine {
 		this.debitArray = []; // mang debit da sap xep
 		this.detailIndex = {}; // dung inverted index
 		this.rawData = [];
+		this.cache = new Map();
 	}
 	// Bat dau load du lieu .....
 	loadData(data) {
@@ -185,6 +186,12 @@ class SearchEngine {
 
 	// ham bat dau tim kiem
 	search({ date, amount, content, page, pageSize }) {
+		// cache de luu lai ket qua
+		const cacheKey = `${date || ""}-${amount || ""}-${content || ""}-${page || ""}`;
+		if (this.cache.has(cacheKey)) {
+			return this.cache.get(cacheKey);
+		}
+
 		let results = this.rawData; //loc qua cac gia tri date, amount va content
 
 		if (date) {
@@ -205,10 +212,11 @@ class SearchEngine {
 		}
 		console.log("Results sau khi qua content : ", results.length);
 
-		const totalResults = results.length;
+		const totalResults = results.length;  // so luong ket qua tim thay
 		results = results.slice((page - 1) * pageSize, page * pageSize); // tinh toan cac row dung cho page (1,2,3,4) , moi trang co pageSize ket qua
-
-		return { results, totalResults, page };
+		const result = { results, totalResults, page }; // dung cache de luu lai lich su tim kiem
+		this.cache.set(cacheKey, result);
+		return result;
 	}
 }
 

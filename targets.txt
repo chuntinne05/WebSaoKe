@@ -1,0 +1,1 @@
+GET http://localhost:1908/search?date=10/09/2024&amount=100000&content=MTTQ

@@ -18,11 +18,11 @@ parentPort.on("message", async (message) => {
 			console.error("csvFilePath is missing in payLoad");
 		}
 	} else if (type === "search") {
-		const results = searchEngine.search(payLoad);
+		const results = await searchEngine.search(payLoad);
 		parentPort.postMessage({
 			type: "searchResults",
 			payload: results,
-		});	
+		});
 	}
 });
 
@@ -42,4 +42,3 @@ async function loadData(csvFilePath) {
 		console.error("Failed to load data: ", error);
 	}
 }
-
