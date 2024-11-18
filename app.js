@@ -1,22 +1,3 @@
-// <<<<<<< HEAD
-const http = require("http");
-const express = require("express");
-const app = express();
-const port=8080;
-const bodyParser = require("body-parser");
-
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-	res.end("test xem");
-});
-
-app.listen(port, () => {
-	console.log(`Sever is running at http://localhost:${port}`);
-});
-// =======
 /**
  Cách test : 
  bật terminal điều hướng tới file : 
@@ -86,5 +67,3 @@ app.listen(port, () => {
 	 console.log(`Server is running on http://localhost:${PORT}`);
 	 loadWorker();
  });
- 
-// >>>>>>> 220e474a98143bc246174bd9fcdd9baa9ae88a4b
