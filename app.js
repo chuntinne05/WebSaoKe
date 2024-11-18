@@ -1,21 +1,14 @@
 // <<<<<<< HEAD
 const http = require("http");
-const express = require("express");
-const app = express();
-const port=8080;
 const bodyParser = require("body-parser");
-
+const express = require("express");
+const { Worker } = require("worker_threads");
+const path = require("path");
+const app = express();
+const PORT = 1908;
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get("/", (req, res) => {
-	res.end("test xem");
-});
-
-app.listen(port, () => {
-	console.log(`Sever is running at http://localhost:${port}`);
-});
 // =======
 /**
  Cách test : 
@@ -24,11 +17,7 @@ app.listen(port, () => {
  - nodemon app.js
  - copy  : "http://localhost:1908/search?date=...&amount=...&content=...." (có thể đổi chỗ hoặc bỏ đi các trường tìm kiếm)
  */
- const express = require("express");
- const { Worker } = require("worker_threads");
- const path = require("path");
- const app = express();
- const PORT = 1908;
+
  
  let worker;
  
@@ -56,7 +45,7 @@ app.listen(port, () => {
 		 type: "loadData",
 		 payLoad: {
 			 csvFilePath:
-				 "/Users/trinhtrantrungtin/Desktop/LTNC/data/chuyen_khoan.csv",
+				 "/KHMT/ComputerScience/WebProgramming/Assignment/WebSaoKe/data/chuyen_khoan.csv",
 		 },
 	 });
  }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Engine System</h1>
+
+        <!-- Upload CSV Section -->
+        <div class="upload-section">
+            <h2>Upload CSV</h2>
+            <input type="file" id="fileInput" accept=".csv">
+            <button id="loadDataButton">Load Data</button>
+        </div>
+
+        <!-- Search Form Section -->
+        <div class="search-section">
+            <h2>Search Data</h2>
+            <form id="searchForm">
+                <label for="dateInput">Date:</label>
+                <input type="text" id="date_input" placeholder="DD/MM/YYYY">
+
+                <label for="amountInput">Amount:</label>
+                <input type="number" id="money_input" placeholder="Enter amount">
+
+                <label for="contentInput">Content:</label>
+                <input type="text" id="text_input" placeholder="Enter content">
+
+                <button type="submit" id="search_button">Search</button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsContainer"></div>
+
+        <!-- Pagination Controls -->
+        <div id="paginationControls">
+            <button id="prev_button" disabled>Prev</button>
+            <button id="next_button" disabled>Next</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+!
