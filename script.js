@@ -1,35 +1,64 @@
-import http from "k6/http";
-import { check, sleep } from "k6";
+let currentPage = 1;
+let totalPages = 0;
 
-// Cấu hình stress test
-export let options = {
-	stages: [
-		{ duration: "1m", target: 100 }, // 1 phút với 100 VUs
-		{ duration: "1m", target: 200 }, // 1 phút với 200 VUs
-		{ duration: "1m", target: 400 }, // 1 phút với 400 VUs
-		{ duration: "1m", target: 500 }, // 1 phút với 500 VUs
-		{ duration: "1m", target: 600 }, // 1 phút với 600 VUs
-		{ duration: "1m", target: 700 }, // 1 phút với 700 VUs
-		{ duration: "1m", target: 800 }, // 1 phút với 800 VUs
-		{ duration: "1m", target: 1000 }, // 1 phút với 1000 VUs
-		{ duration: "1m", target: 1500 }, // 1 phút với 1500 VUs
-	],
-	// duration: '10m',
-	// vus: 200,
-};
+async function searchTransactions() {
+	const dateInput = document.getElementById("dateInput").value;
+	const amountInput = document.getElementById("amountInput").value;
+	const contentInput = document.getElementById("contentInput").value;
 
-export default function () {
-	const url = "http://localhost:1908/search";
-	const params = {
-		headers: { "Content-Type": "application/json" },
-	};
+	try {
+		const response = await fetch(
+			`/search?date=${dateInput}&amount=${amountInput}&content=${contentInput}&page=${currentPage}`
+		);
+		const data = await response.json();
 
-	const res = http.get(`${url}?date=10/09/2024&content=MTTQ`, params);
-
-	check(res, {
-		"status was 200": (r) => r.status === 200,
-		"response time < 200ms": (r) => r.timings.duration < 200,
-	});
-
-	sleep(1);
+		displayResults(data.results);
+		updatePagination(data.totalResults, data.page);
+	} catch (error) {
+		console.error("Search error:", error);
+		alert("An error occurred while searching transactions.");
+	}
 }
+
+function displayResults(results) {
+	const resultsBody = document.getElementById("resultsBody");
+	resultsBody.innerHTML = ""; // Clear previous results
+
+	results.forEach((transaction) => {
+		const row = document.createElement("tr");
+		row.innerHTML = `
+            <td>${transaction.date_time?.split("_")[0] || "N/A"}</td>
+            <td>${transaction.credit || "N/A"}</td>
+            <td>${transaction.debit || "N/A"}</td>
+            <td>${transaction.detail || "N/A"}</td>
+        `;
+		resultsBody.appendChild(row);
+	});
+}
+
+function updatePagination(totalResults, currentPageNum) {
+	currentPage = currentPageNum;
+	totalPages = Math.ceil(totalResults / 40); // Assuming 40 results per page from backend
+
+	const pageInfo = document.getElementById("pageInfo");
+	pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+	const prevButton = document.getElementById("prevButton");
+	const nextButton = document.getElementById("nextButton");
+
+	prevButton.disabled = currentPage === 1;
+	nextButton.disabled = currentPage === totalPages;
+}
+
+function changePage(delta) {
+	currentPage += delta;
+	searchTransactions();
+}
+
+// Initial page load
+document.addEventListener("DOMContentLoaded", () => {
+	const prevButton = document.getElementById("prevButton");
+	const nextButton = document.getElementById("nextButton");
+	prevButton.disabled = true;
+	nextButton.disabled = true;
+});

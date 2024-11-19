@@ -1,6 +1,6 @@
 /**
- Cách test : 
- bật terminal điều hướng tới file : 
+ Cách test :
+ bật terminal điều hướng tới file :
  - cd LTNC
  - nodemon app.js
  - copy  : "http://localhost:1908/search?date=...&amount=...&content=...." (có thể đổi chỗ hoặc bỏ đi các trường tìm kiếm)
@@ -42,6 +42,8 @@ function loadWorker() {
 	});
 }
 
+app.use(express.static(path.join(__dirname, ".")));
+
 app.get("/search", (req, res) => {
 	const { date, amount, content, page = 1, pageSize = 40 } = req.query;
 
@@ -61,6 +63,10 @@ app.get("/search", (req, res) => {
 			res.json(message.payload);
 		}
 	});
+});
+
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "views/index.html"));
 });
 
 app.listen(PORT, () => {

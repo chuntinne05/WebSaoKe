@@ -3,14 +3,72 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Web sao ke</title>
+		<title>Transaction Search</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 20px;
+			}
+			.search-container {
+				display: flex;
+				gap: 10px;
+				margin-bottom: 20px;
+			}
+			.search-container input {
+				flex-grow: 1;
+				padding: 8px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			table,
+			th,
+			td {
+				border: 1px solid #ddd;
+			}
+			th,
+			td {
+				padding: 10px;
+				text-align: left;
+			}
+			.pagination {
+				display: flex;
+				justify-content: center;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
 	<body>
-		<section class="searchBar">
-			<input type="text" placeholder="Nhap noi dung hoac ten" name="content" />
-			<input type="text" placeholder="Nhap ngay" name="content" />
-			<input type="text" placeholder="Nhap so tien" name="amount" />
-			<button type="submit">Tìm Kiếm</button>
-		</section>
+		<h1>Transaction Search</h1>
+		<div class="search-container">
+			<input type="text" id="dateInput" placeholder="Date (DD/MM/YYYY)" />
+			<input type="number" id="amountInput" placeholder="Amount" />
+			<input type="text" id="contentInput" placeholder="Content" />
+			<button onclick="searchTransactions()">Search</button>
+		</div>
+		<div id="resultsContainer">
+			<table id="resultsTable">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Credit</th>
+						<th>Debit</th>
+						<th>Detail</th>
+					</tr>
+				</thead>
+				<tbody id="resultsBody">
+					<!-- Search results will be populated here -->
+				</tbody>
+			</table>
+			<div class="pagination" id="paginationContainer">
+				<button id="prevButton" onclick="changePage(-1)">Previous</button>
+				<span id="pageInfo"></span>
+				<button id="nextButton" onclick="changePage(1)">Next</button>
+			</div>
+		</div>
+		<script src="script.js"></script>
 	</body>
 </html>
