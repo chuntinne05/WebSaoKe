@@ -1,0 +1,54 @@
+/*------------------------------ header----------------------------------------*/
+.web{
+    background-color: #fff;
+}
+.header{
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, rgb(201,0,0), rgb(190, 175, 13));
+    height: 80px;
+    position: relative;
+    z-index: 1;
+}
+.header__logo{
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+ 
+.header__title{
+    margin-top: 10px;
+    line-height: 1.2rem;
+}
+.header__nav{
+    display: flex;
+    align-items: center;
+    margin-left: 58%;
+    font-size: 1.48rem;
+}
+#header__searching{
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+#header__searching:hover{
+    color: #504d4d;
+}
+#header__searching:active{
+    color: #000;
+}
+#header__history{
+    margin-left: 50px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+#header__history:hover{
+    color: #000;
+}
+#header__history:active{
+    color: #504d4d;
+}

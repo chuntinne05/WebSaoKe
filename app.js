@@ -49,9 +49,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		 },
 	 });
  }
- 
+
  app.get("/search", (req, res) => {
-	 const { date, amount, content, page = 1, pageSize = 40 } = req.query;
+	 const { date, amount, content, page = 1, pageSize = 10 } = req.query;
  
 	 worker.postMessage({
 		 type: "search",
@@ -66,6 +66,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
  
 	 worker.once("message", (message) => {
 		 if (message.type === "searchResults") {
+			console.log("Search result:", message.payload);
 			 res.json(message.payload);
 		 }
 	 });

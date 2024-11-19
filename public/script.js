@@ -1,26 +1,24 @@
 let current_page=1;
 let totalResult=0;
 let pageSize=10;
-const BACKEND_URL = "http://localhost:1908";
-const prev=document.getElementById("prev_button");
-const next=document.getElementById("next_button");
+let searchStartTime;
+const prev=document.getElementById("prev__page");
+const next=document.getElementById("next__page");
 const search=document.getElementById("search_button");
-const resultDiv=document.getElementById("search_result");
+const resultDiv=document.getElementById("resultDiv");
 //
-search.addEventListener('submit',(event)=>{
-    event.preventDefault();
+search.addEventListener('click',()=>{
     current_page=1;
     performSearch();
 });
 //Ham gui yeu cau tu front sang back de lay data
 function performSearch(){
+    searchStartTime = new Date();
     const date=document.getElementById("date_input").value;
-    const money=document.getElementById("money_input").value;
-    const text=document.getElementById("text_input").value;
-    const page=document.getElementById("page_input").value ||1;
-    const page_size=document.getElementById("page_size").value||10;
+    const amount=document.getElementById("amount_input").value;
+    const content=document.getElementById("content_input").value;
     fetch(
-        `${BACKEND_URL}/search?date=${encodeURIComponent(date)}&money=${encodeURIComponent(money)}&text=${encodeURIComponent(text)}&page=${page}&page_size=${page_size}`
+        `/search?date=${date}&amount=${amount}&content=${content}&page=${current_page}`
     )
         .then((response)=>response.json())
         .then((data)=>{
@@ -28,8 +26,13 @@ function performSearch(){
                 alert("Lỗi: " +data.error);
             }else{
                 totalResult=data.totalResults;
-                displayResults(data.result,totalResult,current_page);
+                displayResults(data.results,data.totalResults,current_page);
                 updatePage();
+
+                // const searchEndTime = new Date();
+                // const timeTaken = searchEndTime - searchStartTime;
+                // const timeDisplay = document.getElementById("search_time");
+                // timeDisplay.textContent = `Tổng thời gian tìm kiếm: ${timeTaken / 1000} giây`;
             }
         })
         .catch((error)=>{
@@ -38,47 +41,72 @@ function performSearch(){
         });
 }
 //Ham hien thi ket qua 
-function displayResults(result,totalResults,page){
-    if(result.length==0){
-        resultDiv.innerHTML="<p>Không tìm thấy kết quả!!!</p>";
+function displayResults(results, totalResults, page) {
+    const resultsBody = document.getElementById("resultsBody");
+    resultsBody.innerHTML = `<tr class="menu__row" id="menu__title">
+            <th id="day">Ngày</th>
+            <th id="name">Người đóng góp</th>
+            <th id="money">Số tiền</th>
+            <th id="description">Nội dung</th>
+        </tr>`; 
+
+    // Lấy giá trị input để highlight
+    const dateInput = document.getElementById("date_input").value.trim();
+    const amountInput = document.getElementById("amount_input").value.trim();
+    const contentInput = document.getElementById("content_input").value.trim();
+
+    // Nếu không có kết quả, hiển thị thông báo trong bảng
+    if (results.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 4; // Gộp tất cả các cột
+        cell.textContent = "Không tìm thấy kết quả nào.";
+        cell.style.textAlign = "center";
+        row.appendChild(cell);
+        resultsBody.appendChild(row);
         return;
     }
-    console.log("DMM");
-    const header=document.createElement("h3");
-    header.textContent=`Tổng kết quả: ${totalResults} | Trang: ${page}`;
-    resultDiv.appendChild(header);
-    const table=document.createElement('table');
-    table.classList.add('result_table');
-    const thead = document.createElement("thead");
-    thead.innerHTML = `
-        <tr>
-            <th>Ngày giờ</th>
-            <th>Credit</th>
-            <th>Debit</th>
-            <th>Nội dung</th>
-        </tr>
-    `;
-    table.appendChild(thead);
 
-    const tbody = document.createElement("tbody");
-    result.forEach((result) => {
+    // Thêm dữ liệu mới vào bảng
+    results.forEach((transaction) => {
         const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${result.date_time || "-"}</td>
-            <td>${result.credit || "-"}</td>
-            <td>${result.debit || "-"}</td>
-            <td>${result.detail || "-"}</td>
-        `;
-        tbody.appendChild(row);
-    });
-    table.appendChild(tbody);
 
-    resultsContainer.appendChild(table);
+        // Highlight cột Date
+        const dateCell = highlightText(transaction.date_time, dateInput);
+        
+        // Highlight cột Credit và Debit
+        const creditCell = highlightText(transaction.credit?.toString(), amountInput);
+        const debitCell = highlightText(transaction.debit?.toString(), amountInput);
+
+        // Highlight cột Content
+        const detailCell = highlightText(transaction.detail, contentInput);
+
+        row.innerHTML = `
+            <td>${dateCell}</td>
+            <td>${creditCell}</td>
+            <td>${debitCell}</td>
+            <td>${detailCell}</td>
+        `;
+        resultsBody.appendChild(row);
+    });
+
+    // Cập nhật thông tin số trang
+    const pageInfo = document.getElementById("page__number");
+    pageInfo.textContent=`${page}`;
 }
+
+// Hàm highlight các phần văn bản
+function highlightText(text, searchText) {
+    if (!text || !searchText) return text || "-";  // Trả về giá trị nếu không có gì cần tìm kiếm
+
+    const regex = new RegExp(`(${searchText})`, "gi");  // Tạo biểu thức chính quy cho từ khóa
+    return text.replace(regex, `<span class="highlight">$1</span>`);  // Thêm thẻ <span> với lớp highlight
+}
+
 //Ham lam cho nut bam xuat hien
 function updatePage(){
-    next.disabled=current_page===1;
-    prev.disabled=current_page>=Math.ceil(totalResult/pageSize);
+    prev.disabled=current_page===1;
+    next.disabled=current_page>=Math.ceil(totalResult/pageSize);
 }
 prev.addEventListener("click",()=>{
     if(current_page>1){
