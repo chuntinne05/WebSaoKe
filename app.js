@@ -37,7 +37,7 @@
 		 type: "loadData",
 		 payLoad: {
 			 csvFilePath:
-				 "/Users/trinhtrantrungtin/Desktop/LTNC/data/chuyen_khoan.csv",
+				 "/KHMT/ComputerScience/WebProgramming/Assignment/WebSaoKe/data/chuyen_khoan.csv",
 		 },
 	 });
  }
