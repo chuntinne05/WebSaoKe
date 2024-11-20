@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 		 type: "loadData",
 		 payLoad: {
 			 csvFilePath:
-				 "/KHMT/ComputerScience/WebProgramming/Assignment/WebSaoKe/data/chuyen_khoan.csv",
+				 "data/chuyen_khoan.csv",
 		 },
 	 });
  }
