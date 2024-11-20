@@ -1,3 +1,4 @@
+
 // <<<<<<< HEAD
 const http = require("http");
 const bodyParser = require("body-parser");
@@ -10,6 +11,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // =======
+
 /**
  Cách test : 
  bật terminal điều hướng tới file : 
@@ -76,5 +78,3 @@ app.use(bodyParser.urlencoded({ extended: true }));
 	 console.log(`Server is running on http://localhost:${PORT}`);
 	 loadWorker();
  });
- 
-// >>>>>>> 220e474a98143bc246174bd9fcdd9baa9ae88a4b
