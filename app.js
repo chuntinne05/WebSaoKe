@@ -1,3 +1,17 @@
+
+// <<<<<<< HEAD
+const http = require("http");
+const bodyParser = require("body-parser");
+const express = require("express");
+const { Worker } = require("worker_threads");
+const path = require("path");
+const app = express();
+const PORT = 1908;
+app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// =======
+
 /**
  Cách test : 
  bật terminal điều hướng tới file : 
@@ -5,11 +19,7 @@
  - nodemon app.js
  - copy  : "http://localhost:1908/search?date=...&amount=...&content=...." (có thể đổi chỗ hoặc bỏ đi các trường tìm kiếm)
  */
- const express = require("express");
- const { Worker } = require("worker_threads");
- const path = require("path");
- const app = express();
- const PORT = 1908;
+
  
  let worker;
  
@@ -37,13 +47,13 @@
 		 type: "loadData",
 		 payLoad: {
 			 csvFilePath:
-				 "/Users/trinhtrantrungtin/Desktop/LTNC/data/chuyen_khoan.csv",
+				 "/KHMT/ComputerScience/WebProgramming/Assignment/WebSaoKe/data/chuyen_khoan.csv",
 		 },
 	 });
  }
- 
+
  app.get("/search", (req, res) => {
-	 const { date, amount, content, page = 1, pageSize = 40 } = req.query;
+	 const { date, amount, content, page = 1, pageSize = 10 } = req.query;
  
 	 worker.postMessage({
 		 type: "search",
@@ -58,6 +68,7 @@
  
 	 worker.once("message", (message) => {
 		 if (message.type === "searchResults") {
+			console.log("Search result:", message.payload);
 			 res.json(message.payload);
 		 }
 	 });
@@ -67,4 +78,3 @@
 	 console.log(`Server is running on http://localhost:${PORT}`);
 	 loadWorker();
  });
- 

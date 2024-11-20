@@ -1,0 +1,131 @@
+/* Bảng dữ liệu */
+.menu__container{
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow: hidden;
+    background: rgba(255,255,255,0.2);
+    border-collapse: collapse;
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 96%;
+    margin-bottom: 1%;
+    justify-self: center;
+    font-family: 'Nunito', sans-serif;
+}
+/* Tiêu đề bảng */
+#menu__title{
+    background: rgb(13, 190, 143);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* Các hàng trong bảng */
+.menu__row{
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 3fr 0.5fr;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px
+}
+.menu__row:nth-child(even){
+    background: rgba(255,255,255,0.2);
+}
+.menu__row:hover{
+    background: rgb(255,255,255);
+    color:rgb(13, 190, 143);
+    font-weight: bold;
+}
+/* Nút chuyển trang */
+.paginate{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+/* Trang kế */
+#next__page{
+    margin-left: 0.5%;
+    background: rgb(13, 190, 143);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#next__page:hover{
+    background: rgb(13, 190, 143, 0.8);
+}
+#next__page:active{
+    background: rgb(13, 190, 143, 0.6);
+}
+/* Trang trước */
+#prev__page{
+    margin-right: 0.5%;
+    background: rgb(13, 190, 143);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#prev__page:hover{
+    background: rgb(13, 190, 143, 0.8);
+}
+#prev__page:active{
+    background: rgb(13, 190, 143, 0.6);
+}
+/* Trang hiện tại */
+#current__page{
+    background: rgb(13, 190, 143);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#current__page:hover{
+    background: rgb(13, 190, 143, 0.8);
+}
+#current__page:active{
+    background: rgb(13, 190, 143, 0.6);
+}
+/* Trang đầu tiên */
+#first__page{
+    margin-right: 0.5%;
+    background: rgb(13, 190, 143);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#first__page:hover{
+    background: rgb(13, 190, 143, 0.8);
+}
+#first__page:active{
+    background: rgb(13, 190, 143, 0.6);
+}
+/* Trang cuối cùng */
+#last__page{
+    margin-left: 0.5%;
+    background: rgb(13, 190, 143);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#last__page:hover{
+    background: rgb(13, 190, 143, 0.8);
+}
+#last__page:active{
+    background: rgb(13, 190, 143, 0.6);
+}
+/* Tổng số trang */
+#total__page{
+    color: rgb(13, 190, 143);
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 50px;
+}
