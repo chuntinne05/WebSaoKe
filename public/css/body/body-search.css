@@ -1,0 +1,113 @@
+/* Tạo lịch */
+.date-picker-container {
+    position: relative;
+    display: flex;
+    flex:1;
+}
+input[type="text"] {
+    padding: 10px;
+    font-size: 15px;
+    width: 260px;
+    border: 1px solid #ccc;
+}
+
+.date-options {
+    position: absolute;
+    display: none;
+    top: 45px;
+    left: 0;
+    width: 270px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgb(215, 231, 236);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all .1s linear;
+    font-size:14px;
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
+.date-options:focus{
+    border: 2px solid rgb(50, 50, 54);
+    font-weight: normal;
+    box-shadow: 2px 4px 4px -2px black;
+}
+.date-options div {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.date-options div:hover {
+    background-color: #f0f0f0;
+}
+.date-options div.selected {
+    background-color: #e0e0e0;
+}
+/*----------------------------------end day---------------------------------------------------*/
+
+.body__search{
+    margin: 2%;
+    width: auto;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 20px;
+}
+
+input::placeholder{
+    font-size:14px;
+}
+.body__search-input{
+    display:flex;
+}
+
+.header__search-select{
+    width: 60px;
+    height: 50px;
+    border-radius: 36px;
+    font-size: 1.4rem;
+    border: none;
+    outline: none;
+    border: 1px solid rgb(190, 190, 190);
+    background-color: rgb(246, 246, 246); 
+    cursor: pointer;
+    transition: all .2s ease;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+}
+.header__search-select:hover{
+    background-color:rgb(167, 167, 174); 
+}
+.header__search-select:active{
+    background-color:rgb(246, 246, 246);
+    border: 2px solid rgb(160, 160, 160);
+}
+
+.body__search-input-element {
+    flex:1;
+    height: 50px;
+    background: rgba(255,255,255,0.2);
+    border:none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 35px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-right:1px solid rgba(255,255,255,0.2);
+    border-bottom:1px solid rgba(255,255,255,0.2);
+    font-size:16px;
+    letter-spacing: 1px;
+    color:black;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.fa-solid.fa-magnifying-glass{
+    background: none;
+    border:none;
+    outline:none;
+}
+
+.body__search-input-element:hover{
+    box-shadow:0 5px 15px rgba(0,0,0,0.3) ;
+}

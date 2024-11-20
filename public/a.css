@@ -1,0 +1,83 @@
+/* Style chung cho bảng */
+.result_table {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    margin-top: 20px; /* Tạo khoảng cách phía trên */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Style cho tiêu đề bảng */
+.result_table thead tr {
+    background-color: #007BFF; /* Màu nền xanh dương nhạt */
+    color: white; /* Màu chữ trắng */
+    font-weight: bold;
+}
+
+/* Style cho các ô dữ liệu */
+.result_table th, .result_table td {
+    border: 1px solid #ddd; /* Viền mỏng */
+    padding: 8px; /* Khoảng cách trong ô */
+}
+
+/* Tô màu xen kẽ cho các hàng */
+.result_table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Màu xám nhạt */
+}
+.result_table tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Màu trắng */
+}
+
+/* Style khi hover vào hàng */
+.result_table tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+    cursor: pointer;
+}
+
+/* Center align table in resultDiv */
+#resultDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+/* Style cho khu vực pagination */
+#paginationControls {
+    display: flex; /* Căn các nút thành hàng ngang */
+    justify-content: center; /* Căn giữa các nút */
+    margin-top: 20px; /* Tạo khoảng cách phía trên */
+}
+
+/* Style cho các nút */
+#paginationControls button {
+    background-color: #007BFF; /* Màu nền xanh dương nhạt */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Loại bỏ viền */
+    border-radius: 5px; /* Bo tròn góc */
+    padding: 10px 15px; /* Tạo khoảng cách bên trong nút */
+    margin: 0 5px; /* Tạo khoảng cách giữa các nút */
+    font-size: 14px;
+    cursor: pointer; /* Thêm hiệu ứng khi di chuột */
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng mượt khi hover */
+}
+
+/* Hover và trạng thái không bị disable */
+#paginationControls button:hover:not([disabled]) {
+    background-color: #0056b3; /* Màu đậm hơn khi hover */
+}
+
+/* Nút bị disabled */
+#paginationControls button:disabled {
+    background-color: #cccccc; /* Màu xám nhạt */
+    cursor: not-allowed; /* Hiệu ứng chuột không khả dụng */
+    color: #666666; /* Màu chữ xám */
+}
+/* Highlight cho kết quả */
+
+.highlight {
+    background-color: yellow; /* Màu nền nổi bật */
+    font-weight: bold;         /* Chữ in đậm */
+    color: black;              /* Màu chữ rõ ràng */
+    padding: 2px;              /* Khoảng cách trong */
+    border-radius: 4px;        /* Bo tròn góc */
+}

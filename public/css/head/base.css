@@ -1,0 +1,135 @@
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .roboto-black {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+:root {
+    --white-color: #fff;
+    --black-color: #333;
+    --text-color: #333;
+}
+
+*{
+    box-sizing: inherit;
+}
+
+html{
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family:'Nunito', sans-serif;
+    box-sizing: border-box;
+    background-color:#ffffff;
+}
+
+/* tương thíc với các kích thước màn hình */
+.grid{
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.grid__full--width{
+    width: 100%;
+}
+
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
+}
+/*
+section .color{
+  position: absolute;  
+  filter:blur(350px);
+}
+
+section .color:nth-child(1)
+{
+  top: 0px;
+  left: 0px;
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(#e66465, #9198e5);
+}
+section .color:nth-child(2)
+{
+  bottom: 0px;
+  right: 0px;
+  width:600px;
+  height: 600px;
+  background: linear-gradient(#e66465, #9198e5);
+}
+section .color:nth-child(3)
+{
+  top: -250px;
+  right: 350px;
+  width:600px;
+  height: 600px;
+  background: linear-gradient(#e66465, #9198e5);
+}
+section .color:nth-child(4)
+{
+  bottom: -250px;
+  right: 100px;
+  width:600px;
+  height: 600px;
+  background:black;
+}
+
+/* cái bảng chứa cái bảng */
+.body{
+    width: 95%;
+    height: fit-content;
+    position: relative;
+    background-color: rgba(255, 255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter:blur(5px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255,255,0.2);
+    border-bottom: 1px solid rgba(255, 255,255,0.2);
+    transition: linear all .35s;
+}
+
+.body:hover{
+    position: relative;
+    background-color: rgba(255, 255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter:blur(5px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255,255,0.2);
+    border-right: 1px solid rgba(255, 255,255,0.2);
+    border-bottom: 1px solid rgba(255, 255,255,0.2);
+}
