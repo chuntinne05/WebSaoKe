@@ -1,7 +1,6 @@
 let current_page=1;
 let totalResult=0;
 let pageSize=40;
-let searchStartTime;
 const prev=document.getElementById("prev_page");
 const next=document.getElementById("next_page");
 const first=document.getElementById("first_page");
@@ -177,10 +176,6 @@ function performSearch(){
                 displayResults(data.results,data.totalResults,current_page);
                 updatePage();
                 updatePagination();
-                const searchEndTime = new Date();
-                const timeTaken = searchEndTime - searchStartTime;
-                const timeDisplay = document.getElementById("search_time");
-                timeDisplay.textContent = `Tổng thời gian tìm kiếm: ${timeTaken / 1000} giây`;
             }
         })
         .catch((error)=>{
@@ -243,10 +238,6 @@ function displayResults(results, totalResults, page) {
         
     });
 
-    // Cập nhật thông tin số trang
-    const pageInfo = document.getElementById("page_total");
-    pageInfo.textContent=`${Math.ceil(totalResults/pageSize)}`;
-    
 }
 
 // Hàm highlight các phần văn bản

@@ -1,278 +1,316 @@
 /* Bảng dữ liệu */
-.menu_container {
-	max-height: 400px;
-	overflow-y: scroll;
-	overflow: hidden;
-	background: rgba(255, 255, 255, 0.2);
-	border-collapse: collapse;
-	border-radius: 15px 15px 0px 0px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 96%;
-	margin-bottom: 1%;
-	/* table-layout: fixed; */
-	/* margin-left: 30px; */
-	/* justify-self: center; */
-	margin: 0 auto;
-	font-family: "Nunito", sans-serif;
+.menu_container{
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow: hidden;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 96%;
+    margin-bottom: 1%;
+    margin: 0 auto;
+    font-family: 'Nunito', sans-serif;
+    border-collapse: collapse;
+    table-layout: fixed; 
+    overflow-x: auto;
 }
 
-.menu_container th:nth-child(1),
+.menu_container th:nth-child(1), 
 .menu_container td:nth-child(1) {
-	width: 15%;
+    width: 15%; 
 }
 
-.menu_container th:nth-child(2),
+.menu_container th:nth-child(2), 
 .menu_container td:nth-child(2) {
-	width: 10%;
+    width: 10%; 
 }
 
-.menu_container th:nth-child(3),
+.menu_container th:nth-child(3), 
 .menu_container td:nth-child(3) {
-	width: 10%;
+    width: 10%; 
 }
 
-.menu_container th:nth-child(4),
+.menu_container th:nth-child(4), 
 .menu_container td:nth-child(4) {
-	width: 65%;
+    width: 65%; 
 }
 /* Tiêu đề bảng */
-#menu_title th {
-	padding: 10px;
-	text-align: left;
-	background-color: #1ab394;
-	color: white;
-	font-size: 16px;
-	border: 1px solid #ddd;
-	word-wrap: break-word;
-	white-space: normal;
-}
-
-/* Follow me for more pens like this! */
-
-/* Center the planet */
-/* From Uiverse.io by Shoh2008 */
-.loader {
-	width: 120px;
-	height: 150px;
-	background-color: #fff;
-	background-repeat: no-repeat;
-	background-image: linear-gradient(#ddd 50%, #bbb 51%),
-		linear-gradient(#ddd, #ddd), linear-gradient(#ddd, #ddd),
-		radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
-		radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
-		radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%);
-	background-position: 0 20px, 45px 0, 8px 6px, 55px 3px, 75px 3px, 95px 3px;
-	background-size: 100% 4px, 1px 23px, 30px 8px, 15px 15px, 15px 15px, 15px 15px;
-	position: relative;
-	border-radius: 6%;
-	animation: shake 3s ease-in-out infinite;
-	transform-origin: 60px 180px;
-}
-
-.loader:before {
-	content: "";
-	position: absolute;
-	left: 5px;
-	top: 100%;
-	width: 7px;
-	height: 5px;
-	background: #aaa;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 102px 0 #aaa;
-}
-
-.loader:after {
-	content: "";
-	position: absolute;
-	width: 95px;
-	height: 95px;
-	left: 0;
-	right: 0;
-	margin: auto;
-	bottom: 20px;
-	background-color: #bbdefb;
-	background-image: linear-gradient(
-			to right,
-			#0004 0%,
-			#0004 49%,
-			#0000 50%,
-			#0000 100%
-		),
-		linear-gradient(135deg, #64b5f6 50%, #607d8b 51%);
-	background-size: 30px 100%, 90px 80px;
-	border-radius: 50%;
-	background-repeat: repeat, no-repeat;
-	background-position: 0 0;
-	box-sizing: border-box;
-	border: 10px solid #ddd;
-	box-shadow: 0 0 0 4px #999 inset, 0 0 6px 6px #0004 inset;
-	animation: spin 3s ease-in-out infinite;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	50% {
-		transform: rotate(360deg);
-	}
-
-	75% {
-		transform: rotate(750deg);
-	}
-
-	100% {
-		transform: rotate(1800deg);
-	}
-}
-
-@keyframes shake {
-	65%,
-	80%,
-	88%,
-	96% {
-		transform: rotate(0.5deg);
-	}
-
-	50%,
-	75%,
-	84%,
-	92% {
-		transform: rotate(-0.5deg);
-	}
-
-	0%,
-	50%,
-	100% {
-		transform: rotate(0);
-	}
+#menu_title th{
+    padding: 10px;
+    text-align: left;
+    background-color :#88D66C ;
+    color: white;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    /* word-wrap: break-word; */
+    white-space: normal; 
 }
 /*Hieu ung loading*/
-
-.loader_container {
-	position: sticky;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: rgba(255, 255, 255, 0.8);
-	z-index: 9999;
-}
+.loader {
+    width: 45px;
+    height: 30px;
+    background:
+      linear-gradient(#004ce4 0 0) 0 100%/100% 50%,
+      linear-gradient(#004ce4 0 0) 0 0   /calc(100%/3) 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    clip-path: inset(-100% 0 0 0);
+    animation: l2-0 2s infinite steps(4);
+  }
+  .loader::before,
+  .loader::after {
+    content: "";
+    position: absolute;
+    inset:-50% 0 50%;
+    background:
+      linear-gradient(#00e622 0 0) 0 0      /calc(2*100%/3) 50%,
+      linear-gradient(#00e622 0 0) 100% 100%/calc(2*100%/3) 50%;
+    background-repeat: no-repeat;
+    animation: inherit;
+    animation-name: l2-1;
+  }
+  .loader::after {
+    inset:-100% 0 100%;
+    background:
+      linear-gradient(#e50021 0 0) 0    0/100%         50%,
+      linear-gradient(#e50021 0 0) 100% 0/calc(100%/3) 100%;
+    background-repeat: no-repeat; 
+    animation-name: l2-2;
+  }
+  @keyframes l2-0{
+    0%       {transform: translateY(-250%);clip-path: inset(100% 0 0 0)}
+    25%,100% {transform: translateY(0);clip-path: inset(-100% 0 0 0)}
+  }
+  @keyframes l2-1{
+    0% ,25%  {transform: translateY(-250%)}
+    50%,100% {transform: translateY(0)}
+  }
+  @keyframes l2-2{
+    0% ,50%  {transform: translateY(-250%)}
+    75%,100% {transform: translateY(0)}
+  }
+  .loader_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+  }
 .menu_row td {
-	padding: 8px;
-	font-size: 20px;
-	border: 1px solid #ddd;
-	word-wrap: break-word;
-	white-space: normal;
+    padding: 8px;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+    white-space: normal;
 }
-.menu_row:nth-child(even) {
-	background: rgba(255, 255, 255, 0.2);
+.menu_row:nth-child(even){
+    background: rgba(255,255,255,0.2);
 }
-.menu_row:hover {
-	background: rgb(255, 255, 255);
-	color: rgb(13, 190, 143);
-	font-weight: bold;
+.menu_row:hover{
+    background: rgb(255,255,255);
+    color:rgb(13, 190, 143);
+    font-weight: bold;
+}
+.table_footer
+{
+    margin-top: 10px;
 }
 /* Nút chuyển trang */
-.paginate {
-	display: flex;
-	flex: 1;
-	justify-content: center;
-	margin-bottom: 1%;
+.paginate{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin-bottom: 1%;
+    margin-top: 1%;
 }
 /* Trang kế */
-#next_page {
-	margin-left: 0.5%;
-	background: rgb(13, 190, 143);
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
+#next_page{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    display: inline-block;
+    background: none; 
+    border: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 5px; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    border-radius: 50%;
 }
-#next_page:hover {
-	background: rgb(13, 190, 143, 0.8);
+#next_page:hover{
+    background: #88D66C;
+    color: white; 
 }
-#next_page:active {
-	background: rgb(13, 190, 143, 0.6);
+#next_page:active{
+    color: white; 
+    background: #67a84f;
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Phóng to nhẹ */
 }
 /* Trang trước */
-#prev_page {
-	margin-right: 0.5%;
-	background: rgb(13, 190, 143);
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
+#prev_page{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    display: inline-block;
+    background: none; 
+    border: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 5px; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    border-radius: 50%;
 }
-#prev_page:hover {
-	background: rgb(13, 190, 143, 0.8);
+#prev_page:hover{
+    background: #88D66C;
+    color: white; 
 }
-#prev_page:active {
-	background: rgb(13, 190, 143, 0.6);
+#prev_page:active{
+    color: white; 
+    background: #67a84f;
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Phóng to nhẹ */
 }
 /* Trang hiện tại */
-.page_button {
-	background: rgb(13, 190, 143);
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
+.page_button{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    background: none; 
+    border: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 5px; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    border-radius: 50%;
 }
-.page_button:hover {
-	background: rgb(13, 190, 143, 0.8);
+.page_button:hover{
+    background:#88D66C;
+    color: white; 
 }
-.page_button:active {
-	background: rgb(13, 190, 143, 0.6);
+.page_button:active{
+    color: white; 
+    background: #67a84f;
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Phóng to nhẹ */
 }
-.pagination {
-	gap: 5px;
+.pagination{
+    gap:5px;
 }
-.current_page {
-	background: #e50021;
+.current_page{
+    background: rgba(255, 255, 255, 0.3);
 }
 /* Trang đầu tiên */
-#first_page {
-	margin-right: 0.5%;
-	background: rgb(13, 190, 143);
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
+#first_page{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    display: inline-block;
+    background: none; 
+    border: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 5px; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    border-radius: 50%;
 }
-#first_page:hover {
-	background: rgb(13, 190, 143, 0.8);
+#first_page:hover{
+    background:#88D66C;
+    color: white; 
 }
-#first_page:active {
-	background: rgb(13, 190, 143, 0.6);
+#first_page:active{
+    color: white; 
+    background: #67a84f;
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Phóng to nhẹ */
 }
 /* Trang cuối cùng */
-#last_page {
-	margin-left: 0.5%;
-	background: rgb(13, 190, 143);
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
+#last_page{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    display: inline-block;
+    background: none; 
+    border: none;
+    color: #333;
+    font-size: 16px;
+    margin: 0 5px; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    border-radius: 50%;
 }
-#last_page:hover {
-	background: rgb(13, 190, 143, 0.8);
+#last_page:hover{
+    background: #88D66C;
+    color: white;
 }
-#last_page:active {
-	background: rgb(13, 190, 143, 0.6);
+#last_page:active{
+    color: white; 
+    background: #67a84f;
+    border-radius: 50%; 
+    padding: 5px 10px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Phóng to nhẹ */
 }
 /* Tổng số trang */
-#total_page {
-	color: rgb(13, 190, 143);
-	font-size: 16px;
-	font-weight: bold;
-	margin-right: 50px;
+#total_page{
+    margin-top: 1%;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 50px;
 }
+
+
+@media (max-width: 768px) {
+    .menu_container {
+        display: block; /* Biến bảng thành block để có thể cuộn ngang */
+        overflow-x: auto; /* Thêm thanh cuộn ngang */
+        -webkit-overflow-scrolling: touch; /* Cải thiện cuộn trên các thiết bị cảm ứng */
+    }
+
+    .menu_row th {
+        font-size: 1rem; /* Giảm kích thước chữ trên màn hình nhỏ */
+        padding: 8px; /* Giảm khoảng cách trong các ô */
+        word-wrap: break-word; /* Cho phép xuống dòng trong tiêu đề */
+        white-space: normal; /* Đảm bảo chữ không bị cắt ngắn */
+        text-align: left; /* Canh lề trái cho tiêu đề */
+    }
+
+    .menu_container td {
+        font-size: 1rem; /* Giảm kích thước chữ trong ô */
+        text-align: left; /* Canh lề trái cho nội dung các ô */
+        padding: 8px; /* Điều chỉnh padding cho các ô */
+    }
+}
+
+
+

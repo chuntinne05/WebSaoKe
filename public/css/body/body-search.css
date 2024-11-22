@@ -19,7 +19,7 @@ input[type="text"] {
     width: 270px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: rgb(215, 231, 236);
+    background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: all .1s linear;
@@ -53,6 +53,8 @@ input[type="text"] {
     flex: 1;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap; 
+    box-sizing: border-box;
 }
 
 input::placeholder{
@@ -91,7 +93,7 @@ input::placeholder{
     background: rgba(255,255,255,0.2);
     border:none;
     outline: none;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 35px;
     border: 1px solid rgba(255,255,255,0.5);
     border-right:1px solid rgba(255,255,255,0.2);
@@ -100,6 +102,7 @@ input::placeholder{
     letter-spacing: 1px;
     color:black;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin: 0 auto;
 }
 
 .fa-solid.fa-magnifying-glass{
@@ -110,4 +113,30 @@ input::placeholder{
 
 .body__search-input-element:hover{
     box-shadow:0 5px 15px rgba(0,0,0,0.3) ;
+}
+
+@media screen and (max-width: 768px) {
+    .body__search-input-element {
+        min-width: 100%; /* Các input sẽ chiếm toàn bộ chiều rộng */
+        margin-bottom: 10px; /* Khoảng cách giữa các ô input */
+    }
+
+    /* Các input khi bắt đầu xuống dòng sẽ có độ dài bằng nhau */
+    .body__search {
+        flex-direction: column; /* Chuyển các input xuống thành cột */
+    }
+
+    #date_input,
+    #amount_input,
+    #content_input {
+        width: 100%; /* Các input sẽ có độ rộng 100% */
+    }
+    
+    /* Đảm bảo nút tìm kiếm vẫn giữ được vị trí đúng */
+    .header__search-select {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
 }

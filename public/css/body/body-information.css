@@ -1,8 +1,8 @@
 .body__information {
     margin: 40px 0px 50px 40px;
     position: relative;
-    width:100%;
-    height:100%;
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
 }
 
 .body__information h1{
@@ -11,6 +11,8 @@
     font-size: 2.4rem;
     font-weight: bold;
     letter-spacing: 1px;
+    word-wrap: break-word; /* Cho phép xuống dòng khi chữ quá dài */
+    line-height: 1.5;
 }
 .body__information p{
     position: relative;
@@ -18,13 +20,42 @@
     font-size: 1.5rem;
     font-weight: 600px;
     letter-spacing: 1px;
+    word-wrap: break-word; /* Tự động xuống dòng nếu cần */
+    line-height: 1.5; /* Tăng khoảng cách giữa các dòng */
 }
 .body__information p::before{
     content: ' ';
     position: absolute;
     left: 0;
     bottom: -10px;
-    width: 300px;
     height:  4px;
     background: black ;
+    width: 60%; /* Độ dài gạch ngang */
+    max-width: 300px; /* Giới hạn chiều dài gạch ngang */
+    height: 4px;
+    background: black;
+}
+
+
+@media (max-width: 768px) {
+    .body__information h1 {
+        font-size: 2rem; /* Giảm kích thước chữ */
+    }
+
+    .body__information p {
+        font-size: 1.2rem; /* Giảm kích thước chữ */
+    }
+
+    .body__information p::before {
+        width: 80%; /* Gạch ngang dài hơn trên màn hình nhỏ */
+    }
+
+    /* Khi màn hình nhỏ, căn lề trái cho .body__information */
+    .body__information {
+        width: 100%; /* Chiếm 100% chiều rộng màn hình */
+        margin-left: 0; /* Canh trái */
+        margin-right: 0; /* Không có khoảng cách bên phải */
+        padding-left: 15px; /* Thêm khoảng cách bên trái */
+        padding-right: 15px; /* Thêm khoảng cách bên phải */
+    }
 }
