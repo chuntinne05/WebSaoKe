@@ -37,7 +37,7 @@
                 </div>
                 <!-- Nút tìm kiếm và lịch sử tìm kiếm -->
                 <div class = "header__nav" style="font-family: 'Nunito', sans-serif;">        
-                    <button id = "header__history"> LỊCH SỬ TÌM KIẾM </button>
+                    <a id = "header__history"> LỊCH SỬ TÌM KIẾM </a>
                 </div>
             </div>
 
@@ -82,8 +82,18 @@
                     <!-- Tiêu đề bảng -->
                         <thead>
                         <tr class="menu_row" id="menu_title" >
-                            <th id="day">Ngày</th>
-                            <th id="name">Số tiền</th>
+                            <th id="day">
+                                Ngày
+                                <button id="daySortButton" class="sortButton">
+                                  <i class="fa-solid fa-sort"></i>
+                                </button>
+                              </th>
+                              <th id="name">
+                                Số tiền
+                                <button id="moneySortButton" class="sortButton">
+                                  <i class="fa-solid fa-sort"></i>
+                                </button>
+                              </th>
                             <th id="money">Số nợ</th>
                             <th id="description">Nội dung chuyển khoản</th>
                         </tr>

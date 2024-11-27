@@ -1,6 +1,7 @@
 let current_page=1;
 let totalResult=0;
 let pageSize=40;
+let current_result=[];
 const prev=document.getElementById("prev_page");
 const next=document.getElementById("next_page");
 const first=document.getElementById("first_page");
@@ -173,6 +174,7 @@ function performSearch(){
                 alert("Lỗi: " +data.error);
             }else{
                 totalResult=data.totalResults;
+                current_result=data.results;
                 displayResults(data.results,data.totalResults,current_page);
                 updatePage();
                 updatePagination();
@@ -240,6 +242,7 @@ function displayResults(results, totalResults, page) {
 
 }
 
+
 // Hàm highlight các phần văn bản
 function highlightText(text, searchText) {
     if (!text || !searchText) return text || "-";  // Trả về giá trị nếu không có gì cần tìm kiếm
@@ -304,7 +307,7 @@ function updatePagination(){
         ) {
             // Hiển thị dấu "..."
             const ellipsis = document.createElement("span");
-            ellipsis.textContent = "...";
+            ellipsis.textContent = ". . .";
             paginationContainer.appendChild(ellipsis);
         }
     }
@@ -317,3 +320,92 @@ last.addEventListener("click",()=>{
     current_page=Math.ceil(totalResult/pageSize);
     performSearch();
 })
+
+
+const dateInput = document.getElementById("date_input");
+  const dateOptions = document.getElementById("date-options");
+  
+  // Hiển thị danh sách khi click vào ô nhập
+  dateInput.addEventListener("focus", () => {
+    dateOptions.style.display = "block";
+  });
+
+  // Ẩn danh sách khi click ngoài
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".date-picker-container")) {
+      dateOptions.style.display = "none";
+    }
+  });
+
+  // Xử lý sự kiện click chọn ngày
+  dateOptions.addEventListener("click", (e) => {
+    const selectedDate = e.target.getAttribute("data-date");
+    if (selectedDate) {
+      dateInput.value = selectedDate;
+      dateOptions.style.display = "none"; // Ẩn danh sách sau khi chọn
+    }
+  });
+  // Cho phép xóa và nhập thủ công
+  dateInput.addEventListener("input", () => {
+    // Nếu người dùng nhập mới, không làm gì thêm
+    dateOptions.style.display = "none";
+  })
+    let daySortAscending = true; // Sort order for the day column
+    let moneySortAscending = true; // Sort order for the money column
+
+    const daySortButton = document.getElementById("daySortButton");
+    const moneySortButton = document.getElementById("moneySortButton");
+
+    // Event listener for sorting by day
+    daySortButton.addEventListener("click", () => {
+        sortTable("day", daySortAscending);
+        updateSortButtonState(daySortButton,daySortAscending);
+        daySortAscending = !daySortAscending; // Toggle sort order
+    });
+
+    // Event listener for sorting by money
+    moneySortButton.addEventListener("click", () => {
+        sortTable("money", moneySortAscending);
+        updateSortButtonState(moneySortButton,moneySortAscending);
+        moneySortAscending = !moneySortAscending; // Toggle sort order
+    });
+
+    function sortTable(column, ascending) {
+        const tableBody = document.getElementById("resultsBody");
+        const rows = Array.from(tableBody.rows);
+
+        // Determine sort key based on the column
+        const columnIndex = column === "day" ? 0 : 1;
+
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].textContent.trim();
+            const cellB = b.cells[columnIndex].textContent.trim();
+            if (column === "money") {
+                return ascending
+                    ? parseFloat(cellA) - parseFloat(cellB)
+                    : parseFloat(cellB) - parseFloat(cellA);
+            } else if (column === "day") {
+                const dateA = new Date(cellA.split("/").reverse().join("-"));
+                const dateB = new Date(cellB.split("/").reverse().join("-"));
+                return ascending ? dateA - dateB : dateB - dateA;
+            }
+
+            return 0;
+        });
+        rows.forEach(row => tableBody.appendChild(row));
+    }
+function updateSortButtonState(button, ascending) {
+
+    document.querySelectorAll(".sortButton").forEach(btn => {
+        btn.classList.remove("sort-asc", "sort-desc");
+        btn.querySelector("i").className = "fa-solid fa-sort"; 
+    });
+    const icon = button.querySelector("i");
+    if (ascending) {
+        button.classList.add("sort-asc");
+        icon.className = "fa-solid fa-sort-up";
+    } else {
+        button.classList.add("sort-desc");
+        icon.className = "fa-solid fa-sort-down"; 
+    }
+}

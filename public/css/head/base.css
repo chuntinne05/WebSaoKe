@@ -33,6 +33,8 @@
     --black-color: #333;
     --text-color: #333;
     --green-color: #2ecc71;
+    --web-color: #41C9E2 ;
+    --web-color-active:#35a7bb ;
 }
 
 *{
@@ -76,7 +78,7 @@ html{
 
 /* cái bảng chứa cái bảng */
 .body{
-    width: 95%;
+    width: 95vw;
     height: fit-content;
     position: absolute;
     background-color: rgba(255, 255,255,0.1);
@@ -102,48 +104,6 @@ html{
     box-shadow: 0 25px 45px rgba(0,0,0,0.5);
 }
 
-/* Nút Lên đầu trang */
-#backToTop {
-  position: fixed;
-  bottom: 20px; /* Cách đáy */
-  right: 20px; /* Cách phải */
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: block;
-  border-radius: 50%; /* Làm nút tròn */
-  font-size: 18px;
-  cursor: pointer;
-  display: none; /* Ẩn nút ban đầu */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
-}
-
-/* Hiệu ứng hover */
-#backToTop:hover {
-  background-color: #0056b3;
-  transform: scale(1.1); /* Phóng to nút khi hover */
-}
-
-/* Responsive cho màn hình nhỏ */
-@media (max-width: 768px) {
-  #backToTop {
-    bottom: 10px;
-    right: 10px;
-    font-size: 16px;
-    padding: 8px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  #backToTop {
-    bottom: 5px;
-    right: 5px;
-    font-size: 14px;
-    padding: 6px 10px;
-  }
-}
-
 @media (max-width: 768px) {
   .header {
       flex-direction: column;
@@ -161,6 +121,9 @@ html{
 
   .menu_container {
       font-size: 0.9rem; /* Chỉnh nhỏ hơn để hiển thị tốt trên màn hình nhỏ */
+  }
+  .body{
+    top: 35vh;
   }
 
 }
