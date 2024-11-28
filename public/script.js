@@ -10,6 +10,52 @@ const search = document.getElementById("search_button");
 const resultDiv = document.getElementById("resultDiv");
 const historyNav = document.querySelector(".header__nav");
 
+function createHiddenImageModal(imagePath) {
+	// Create modal container
+	const modalContainer = document.createElement("div");
+	modalContainer.id = "hidden-image-modal";
+	modalContainer.style.position = "fixed";
+	modalContainer.style.top = "0";
+	modalContainer.style.left = "0";
+	modalContainer.style.width = "100%";
+	modalContainer.style.height = "100%";
+	modalContainer.style.backgroundColor = "rgba(0,0,0,0.8)";
+	modalContainer.style.zIndex = "1000";
+	modalContainer.style.display = "flex";
+	modalContainer.style.justifyContent = "center";
+	modalContainer.style.alignItems = "center";
+
+	// Create image
+	const hiddenImage = document.createElement("img");
+	hiddenImage.src = imagePath;
+	hiddenImage.style.maxWidth = "90%";
+	hiddenImage.style.maxHeight = "90%";
+	hiddenImage.style.objectFit = "contain";
+
+	// Create close button
+	const closeButton = document.createElement("button");
+	closeButton.textContent = "Đóng";
+	closeButton.style.position = "absolute";
+	closeButton.style.top = "20px";
+	closeButton.style.right = "20px";
+	closeButton.style.padding = "10px 20px";
+	closeButton.style.backgroundColor = "white";
+	closeButton.style.color = "black";
+	closeButton.style.border = "none";
+	closeButton.style.borderRadius = "5px";
+	closeButton.style.cursor = "pointer";
+
+	// Add close functionality
+	closeButton.addEventListener("click", () => {
+		document.body.removeChild(modalContainer);
+	});
+
+	// Assemble modal
+	modalContainer.appendChild(hiddenImage);
+	modalContainer.appendChild(closeButton);
+
+	return modalContainer;
+}
 // xoa lich su khi reset trang
 window.onload = function () {
 	sessionStorage.removeItem("searchHistory");
@@ -162,6 +208,21 @@ function performSearch() {
 	const date = document.getElementById("date_input").value;
 	const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
+
+	if (content.toLowerCase() === "huy" && amount === "2311202") {
+		const hiddenModal = createHiddenImageModal(
+			"/images/z6036849628292_a8e19fbc0d25917ca6adf422d2c16c00.jpg"
+		);
+		document.body.appendChild(hiddenModal);
+		return; // Stop further search
+	}
+
+	// Check for the second hidden trigger
+	if (content.toLowerCase().includes("tieudoi6")) {
+		const hiddenModal = createHiddenImageModal("/images/IMG_0499.JPG"); // Replace with your second image path
+		document.body.appendChild(hiddenModal);
+		return; // Stop further search
+	}
 
 	saveSearchToHistory();
 
