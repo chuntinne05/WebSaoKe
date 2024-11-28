@@ -1,122 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>wEb SẠo ke heheheheeheh</title>
-        <link rel="icon" type="image/x-icon" href="https://icons.iconarchive.com/icons/wikipedia/flags/512/VN-Vietnam-Flag-icon.png">
-        <link rel="stylesheet" href="./css/body/body_table.css">
-        <link rel="stylesheet" href="./css/body/body-search.css">
-        <link rel="stylesheet" href="./css/body/body-information.css">
-        <link rel="stylesheet" href="./css/head/header.css">
-        <link rel="stylesheet" href="./css/head/base.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-        <script src="script.js" defer></script>  
-        <!-- Font chữ -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap">
-    </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>wEb SẠo ke heheheheeheh</title>
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="https://icons.iconarchive.com/icons/wikipedia/flags/512/VN-Vietnam-Flag-icon.png"
+		/>
+		<link rel="stylesheet" href="./css/body/body_table.css" />
+		<link rel="stylesheet" href="./css/body/body-search.css" />
+		<link rel="stylesheet" href="./css/body/body-information.css" />
+		<link rel="stylesheet" href="./css/head/header.css" />
+		<link rel="stylesheet" href="./css/head/base.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+		/>
+		<script src="script.js" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.15/jspdf.plugin.autotable.min.js"></script>
+		<!-- Font chữ -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+		/>
+	</head>
 
-    <body>
-        <div class = "web">
-            <!-- TIÊU ĐỀ WEB -->
-            <div class="header">
-                <!-- Logo web -->
-                <a href="/">
-                    <img class="header__logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bi%E1%BB%83u_tr%C6%B0ng_M%E1%BA%B7t_tr%E1%BA%ADn_T%E1%BB%95_qu%E1%BB%91c_Vi%E1%BB%87t_Nam.svg/2048px-Bi%E1%BB%83u_tr%C6%B0ng_M%E1%BA%B7t_tr%E1%BA%ADn_T%E1%BB%95_qu%E1%BB%91c_Vi%E1%BB%87t_Nam.svg.png" alt="">
-                </a>
-                <!-- Tiêu đề web -->
-                <div class = "header__title" style="font-family: 'Nunito', sans-serif;">
-                    <p style = "font-size: 1.4rem;  font-weight: 700; margin-top: 5px;"> MẶT TRẬN TỔ QUỐC VIỆT NAM</p>
-                    <p style = "font-size: 1.9rem;  font-weight: 700;">HỆ THỐNG SAO KÊ TỪ THIỆN</p>
-                </div>
-                <!-- Nút tìm kiếm và lịch sử tìm kiếm -->
-                <div class = "header__nav" style="font-family: 'Nunito', sans-serif;">        
-                    <a id = "header__history"> LỊCH SỬ TÌM KIẾM </a>
-                </div>
-            </div>
+	<body>
+		<div class="web">
+			<!-- TIÊU ĐỀ WEB -->
+			<div class="header">
+				<!-- Logo web -->
+				<a href="/">
+					<img
+						class="header__logo"
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bi%E1%BB%83u_tr%C6%B0ng_M%E1%BA%B7t_tr%E1%BA%ADn_T%E1%BB%95_qu%E1%BB%91c_Vi%E1%BB%87t_Nam.svg/2048px-Bi%E1%BB%83u_tr%C6%B0ng_M%E1%BA%B7t_tr%E1%BA%ADn_T%E1%BB%95_qu%E1%BB%91c_Vi%E1%BB%87t_Nam.svg.png"
+						alt=""
+					/>
+				</a>
+				<!-- Tiêu đề web -->
+				<div class="header__title" style="font-family: 'Nunito', sans-serif">
+					<p style="font-size: 1.4rem; font-weight: 700; margin-top: 5px">
+						MẶT TRẬN TỔ QUỐC VIỆT NAM
+					</p>
+					<p style="font-size: 1.9rem; font-weight: 700">
+						HỆ THỐNG SAO KÊ TỪ THIỆN
+					</p>
+				</div>
+				<!-- Nút tìm kiếm và lịch sử tìm kiếm -->
+				<div class="header__nav" style="font-family: 'Nunito', sans-serif">
+					<a id="header__history"> LỊCH SỬ TÌM KIẾM </a>
+				</div>
+			</div>
 
-            <!-- THÂN TRANG WEB -->
-                          
-            <div class="body">
-                <!-- Thông tin giới thiệu về web -->
-                <div class="body__information" style="font-family: 'Nunito', sans-serif;  ">
-                    <h1>Danh sách đóng góp bão số 3 Yagi thông qua tài khoản Mặt trận Tổ quốc Việt Nam</h1>
-                    <p>Theo danh sách công bố từ MTTQVN đến ngày 10/11/2024</p>
-                </div>
-                <!-- Các ô nhập thông tin tìm kiếm -->
-                <div class="body__search">
-                    <!-- Nhập ngày -->
-                    <div class="date-picker-container">
-                        <input type="text" id="date_input" readonly style="cursor: pointer;" class = "body__search-input-element" style = "border-radius: 35px; flex: 1;" placeholder="Chọn ngày (DD/MM/YYYY)">
-                        <div class="date-options" id="date-options">
-                            <!-- Ngày từ 1 đến 10 tháng 9 -->
-                            <div data-date="01/09/2024">01/9/2024</div>
-                            <div data-date="02/09/2024">02/9/2024</div>
-                            <div data-date="03/09/2024">03/9/2024</div>
-                            <div data-date="04/09/2024">04/9/2024</div>
-                            <div data-date="05/09/2024">05/9/2024</div>
-                            <div data-date="06/09/2024">06/9/2024</div>
-                            <div data-date="07/09/2024">07/9/2024</div>
-                            <div data-date="08/09/2024">08/9/2024</div>
-                            <div data-date="09/09/2024">09/9/2024</div>
-                            <div data-date="10/09/2024">10/9/2024</div>
-                        </div>
-                    </div>
-                    <!-- Nhập số tiền -->
-                    <input type="text" id="amount_input" class="body__search-input-element" style = "flex: 1;" placeholder="Nhập số tiền">
-                    <!-- Nhập nội dung -->
-                    <input type="text" id="content_input" class="body__search-input-element" style = "flex: 4;"placeholder="Nhập nội dung">
-                    <!-- Nút tìm kiếm -->
-                    <div class="header__search-select">
-                        <button id="search_button" class= "fa-solid fa-magnifying-glass"></button> 
-                    </div>
-                </div>
-                <!-- Bảng thông tin -->
-                <table class="menu_container">
-                    <!-- Tiêu đề bảng -->
-                        <thead>
-                        <tr class="menu_row" id="menu_title" >
-                            <th id="day">
-                                Ngày
-                                <button id="daySortButton" class="sortButton">
-                                  <i class="fa-solid fa-sort"></i>
-                                </button>
-                              </th>
-                              <th id="name">
-                                Số tiền
-                                <button id="moneySortButton" class="sortButton">
-                                  <i class="fa-solid fa-sort"></i>
-                                </button>
-                              </th>
-                            <th id="money">Số nợ</th>
-                            <th id="description">Nội dung chuyển khoản</th>
-                        </tr>
-                        </thead>
-                        <tbody id="resultsBody">           
-                        </tbody>
-                    <!-- Nội dung bảng -->
-                </table>
-                <!-- Phân trang -->
-                <div class="table_footer" style="display: flex;">
-                    <!-- Nút chuyển trang -->
-                    <div class="paginate">
-                        <button id="first_page" class="fa-solid fa-angles-left"> </button>
-                        <button id="prev_page" class="fa-solid fa-angle-left"> </button>
-                        <div id="pagination" class="pagination"></div>
-                        <button id="next_page" class=" fa-doutone fa-solid fa-angle-right"></button>
-                        <button id="last_page" class="fa-solid fa-angles-right"></button>
-                    </div>
-                </div>
-                <!-- <div id="loading"  class="loader_container" style="display: none;">
+			<!-- THÂN TRANG WEB -->
+
+			<div class="body">
+				<!-- Thông tin giới thiệu về web -->
+				<div
+					class="body__information"
+					style="font-family: 'Nunito', sans-serif"
+				>
+					<h1>
+						Danh sách đóng góp bão số 3 Yagi thông qua tài khoản Mặt trận Tổ
+						quốc Việt Nam
+					</h1>
+					<p>Theo danh sách công bố từ MTTQVN đến ngày 10/11/2024</p>
+				</div>
+				<!-- Các ô nhập thông tin tìm kiếm -->
+				<div class="body__search">
+					<!-- Nhập ngày -->
+					<div class="date-picker-container">
+						<input
+							type="text"
+							id="date_input"
+							readonly
+							style="cursor: pointer"
+							class="body__search-input-element"
+							style="border-radius: 35px; flex: 1"
+							placeholder="Chọn ngày (DD/MM/YYYY)"
+						/>
+						<div class="date-options" id="date-options">
+							<!-- Ngày từ 1 đến 10 tháng 9 -->
+							<div data-date="01/09/2024">01/9/2024</div>
+							<div data-date="02/09/2024">02/9/2024</div>
+							<div data-date="03/09/2024">03/9/2024</div>
+							<div data-date="04/09/2024">04/9/2024</div>
+							<div data-date="05/09/2024">05/9/2024</div>
+							<div data-date="06/09/2024">06/9/2024</div>
+							<div data-date="07/09/2024">07/9/2024</div>
+							<div data-date="08/09/2024">08/9/2024</div>
+							<div data-date="09/09/2024">09/9/2024</div>
+							<div data-date="10/09/2024">10/9/2024</div>
+						</div>
+					</div>
+					<!-- Nhập số tiền -->
+					<input
+						type="text"
+						id="amount_input"
+						class="body__search-input-element"
+						style="flex: 1"
+						placeholder="Nhập số tiền"
+					/>
+					<!-- Nhập nội dung -->
+					<input
+						type="text"
+						id="content_input"
+						class="body__search-input-element"
+						style="flex: 4"
+						placeholder="Nhập nội dung"
+					/>
+					<!-- Nút tìm kiếm -->
+					<div class="header__search-select">
+						<button
+							id="search_button"
+							class="fa-solid fa-magnifying-glass"
+						></button>
+					</div>
+					<!-- Nút xuất pdf -->
+					<div>
+						<button
+							id="pdf-export-button"
+							class="btn btn-primary fa-solid fa-magnifying-glass"
+						>
+							Xuất pdf
+						</button>
+					</div>
+				</div>
+				<!-- Bảng thông tin -->
+				<table class="menu_container">
+					<!-- Tiêu đề bảng -->
+					<thead>
+						<tr class="menu_row" id="menu_title">
+							<th id="day">
+								Ngày
+								<button id="daySortButton" class="sortButton">
+									<i class="fa-solid fa-sort"></i>
+								</button>
+							</th>
+							<th id="name">
+								Số tiền
+								<button id="moneySortButton" class="sortButton">
+									<i class="fa-solid fa-sort"></i>
+								</button>
+							</th>
+							<th id="money">Số nợ</th>
+							<th id="description">Nội dung chuyển khoản</th>
+						</tr>
+					</thead>
+					<tbody id="resultsBody"></tbody>
+					<!-- Nội dung bảng -->
+				</table>
+				<!-- Phân trang -->
+				<div class="table_footer" style="display: flex">
+					<!-- Nút chuyển trang -->
+					<div class="paginate">
+						<button id="first_page" class="fa-solid fa-angles-left"></button>
+						<button id="prev_page" class="fa-solid fa-angle-left"></button>
+						<div id="pagination" class="pagination"></div>
+						<button
+							id="next_page"
+							class="fa-doutone fa-solid fa-angle-right"
+						></button>
+						<button id="last_page" class="fa-solid fa-angles-right"></button>
+					</div>
+				</div>
+				<!-- <div id="loading"  class="loader_container" style="display: none;">
                     <div class="loader" ></div>
                 </div> -->
-            </div>
-        </div>   
-    </body>
+			</div>
+		</div>
+	</body>
 </html>
