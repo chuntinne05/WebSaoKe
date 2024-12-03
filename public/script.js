@@ -518,14 +518,3 @@ function exportAllResultsToPDF() {
 document
 	.getElementById("pdf-export-button")
 	.addEventListener("click", exportAllResultsToPDF);
-
-const pdfExportButton = document.createElement("button");
-const searchButtonContainer = document.querySelector(".body__search");
-pdfExportButton.id = "pdf-export-button";
-pdfExportButton.textContent = "Xuất PDF";
-pdfExportButton.className = "export-pdf-button";
-searchButtonContainer.appendChild(pdfExportButton);
-
-pdfExportButton.addEventListener("click", exportAllResultsToPDF);
-
-// searchButtonContainer.appendChild(pdfExportButton);
