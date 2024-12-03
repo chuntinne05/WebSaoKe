@@ -1,5 +1,3 @@
-
-// <<<<<<< HEAD
 const http = require("http");
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -10,9 +8,8 @@ const PORT = 1908;
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// =======
 
-/**
+/*
  Cách test : 
  bật terminal điều hướng tới file : 
  - cd LTNC
@@ -20,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
  - copy  : "http://localhost:1908/search?date=...&amount=...&content=...." (có thể đổi chỗ hoặc bỏ đi các trường tìm kiếm)
  */
 
- 
  let worker;
  
  function loadWorker() {

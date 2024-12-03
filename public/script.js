@@ -97,10 +97,6 @@ function saveSearchToHistory() {
 		);
 	}
 	searchHistory.unshift(newSearch);
-
-	// if (searchHistory.length > 20) {
-	// 	searchHistory = searchHistory.slice(0, 20);
-	// }
 	sessionStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
 
@@ -200,11 +196,6 @@ search.addEventListener("click", () => {
 //Ham gui yeu cau tu front sang back de lay data
 function performSearch() {
 	searchStartTime = new Date();
-	// const loadingElement = document.getElementById("loading");
-	// setTimeout(() => {
-	//     loadingElement.style.display = "flex";
-	// }, 50);
-
 	const date = document.getElementById("date_input").value;
 	const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
@@ -245,9 +236,6 @@ function performSearch() {
 			console.error("Lỗi khi tìm kiếm", error);
 			alert("Đã xảy ra lỗi khi tìm kiếm!!!");
 		});
-	//         .finally(()=>{
-	//             loadingElement.style.display="none";
-	//         });
 }
 historyNav.addEventListener("click", showHistoryModal);
 
@@ -262,11 +250,6 @@ function formatDate(dateTimeString) {
 function displayResults(results, totalResults, page) {
 	const resultsBody = document.getElementById("resultsBody");
 	resultsBody.innerHTML = "";
-
-	// Lấy giá trị input để highlight
-	// const dateInput = document.getElementById("date_input").value.trim();
-	// const amountInput = document.getElementById("amount_input").value.trim();
-	// const contentInput = document.getElementById("content_input").value.trim();
 
 	// Nếu không có kết quả, hiển thị thông báo trong bảng
 	if (results.length === 0) {
@@ -434,29 +417,6 @@ moneySortButton.addEventListener("click", () => {
 });
 
 function sortTable(column, ascending) {
-	// const tableBody = document.getElementById("resultsBody");
-	// const rows = Array.from(tableBody.rows);
-
-	// // Determine sort key based on the column
-	// const columnIndex = column === "day" ? 0 : 1;
-
-	// rows.sort((a, b) => {
-	//     const cellA = a.cells[columnIndex].textContent.trim();
-	//     const cellB = b.cells[columnIndex].textContent.trim();
-	//     if (column === "money") {
-	//         return ascending
-	//             ? parseFloat(cellA) - parseFloat(cellB)
-	//             : parseFloat(cellB) - parseFloat(cellA);
-	//     } else if (column === "day") {
-	//         const dateA = new Date(cellA.split("/").reverse().join("-"));
-	//         const dateB = new Date(cellB.split("/").reverse().join("-"));
-	//         return ascending ? dateA - dateB : dateB - dateA;
-	//     }
-
-	//     return 0;
-	// });
-	// rows.forEach(row => tableBody.appendChild(row));
-
 	current_result.sort((a, b) => {
 		let valueA, valueB;
 

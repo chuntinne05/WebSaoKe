@@ -1,6 +1,5 @@
 const NodeCache = require("node-cache");
 const Fuse = require("fuse.js");
-// const numCPUs = require("os").cpus().length;
 
 class SearchEngine {
 	constructor() {
@@ -15,11 +14,6 @@ class SearchEngine {
 		});
 	}
 
-	// loadData(data) {
-	// 	this.rawData = data;
-	// 	this.buildDateIndex(data);
-	// 	this.buildSearchIndex(data);
-	// }
 	async loadData(data) {
 		this.rawData = data;
 		await this.buildIndices(data);
@@ -65,32 +59,6 @@ class SearchEngine {
 		});
 	}
 
-	// buildDateIndex(data) {
-	// 	data.forEach((row) => {
-	// 		const date = row.date_time?.split("_")[0];
-	// 		if (date) {
-	// 			if (!this.dateIndex[date]) {
-	// 				this.dateIndex[date] = [];
-	// 			}
-	// 			this.dateIndex[date].push(row);
-	// 		}
-	// 	});
-	// }
-
-	// buildSearchIndex(data) {
-	// 	this.searchIndex = new Fuse(data, {
-	// 		keys: [
-	// 			{ name: "detail", weight: 2 },
-	// 			{ name: "credit", weight: 1 },
-	// 			{ name: "debit", weight: 1 },
-	// 		],
-	// 		threshold: 0.1,
-	// 		distance: 50,
-	// 		ignoreLocation: true,
-	// 		useExtendedSearch: true,
-	// 	});
-	// }
-
 	searchByDate(date) {
 		return this.dateIndex[date] || [];
 	}
@@ -135,8 +103,6 @@ class SearchEngine {
 	}
 
 	search({ date, amount, content, page = 1, pageSize = 10 }) {
-		// console.log("numCPU: ", numCPUs);
-
 		console.time("searchTime");
 
 		const cacheKey = `${date || ""}-${amount || ""}-${content || ""}-${page}`;
