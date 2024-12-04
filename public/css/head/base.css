@@ -50,7 +50,7 @@ body {
 	background-color: #ffffff;
 	background-color: black;
 
-	background-image: url("/public/images/Ảnh màn hình 2024-12-04 lúc 10.45.58.png");
+	background-image: url("/images/Ảnh màn hình 2024-12-04 lúc 10.45.58.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -62,7 +62,7 @@ body {
 body.dark-mode {
 	background-color: var(--dark-background);
 	color: var(--dark-text);
-	background-image: url("/public/images/Ảnh màn hình 2024-12-04 lúc 10.22.34.png");
+	background-image: url("/images/Ảnh màn hình 2024-12-04 lúc 10.22.34.png");
 }
 
 /* tương thích với các kích thước màn hình */
@@ -150,29 +150,29 @@ body.dark-mode {
 }
 
 .mode-icon {
-  width: 20px;
-  height: 20px;
-  color: #666;
-  transition: opacity 0.3s ease, transform 0.4s ease;
+	width: 20px;
+	height: 20px;
+	color: #666;
+	transition: opacity 0.3s ease, transform 0.4s ease;
 }
 
 .sun {
-  opacity: 1;
+	opacity: 1;
 }
 
 .moon {
-  opacity: 0;
-  transform: translateX(-20px);
+	opacity: 0;
+	transform: translateX(-20px);
 }
 
 .toggle-switch input:checked + .slider .sun {
-  opacity: 0;
-  transform: translateX(20px);
+	opacity: 0;
+	transform: translateX(20px);
 }
 
 .toggle-switch input:checked + .slider .moon {
-  opacity: 1;
-  transform: translateX(0);
+	opacity: 1;
+	transform: translateX(0);
 }
 
 .toggle-switch input {
@@ -188,13 +188,13 @@ body.dark-mode {
 	left: 0;
 	right: 0;
 	bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5px; 
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: 34px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 5px;
 }
 
 .slider:before {
@@ -204,10 +204,10 @@ body.dark-mode {
 	width: 26px;
 	left: 4px;
 	bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  transition: 0.4s;
-  border-radius: 50%;
+	background-color: white;
+	transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 50%;
 }
 
 input:checked + .slider {
