@@ -50,7 +50,7 @@ body {
 	background-color: #ffffff;
 	background-color: black;
 
-	background-image: url("/images/Ảnh màn hình 2024-12-04 lúc 10.45.58.png");
+	background-image: url("/images/background_day.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -62,7 +62,7 @@ body {
 body.dark-mode {
 	background-color: var(--dark-background);
 	color: var(--dark-text);
-	background-image: url("/images/Ảnh màn hình 2024-12-04 lúc 10.22.34.png");
+	background-image: url("/images/background_night.png");
 }
 
 /* tương thích với các kích thước màn hình */
