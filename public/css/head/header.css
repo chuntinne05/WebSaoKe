@@ -67,8 +67,14 @@
     text-decoration: none;
     transition: 0.3s ease all;
     z-index: 1;
-    color: black;
+    color: var(--light-theme);
+    cursor: pointer;
 }
+
+#header__history.dark-mode{
+    color: var(--dark-theme);
+}
+
 #header__history:before{
     transform: 0.5 all ease;
     position:absolute;
@@ -96,14 +102,6 @@
 }
 
 /* ------------------------------------------------------------------------ */
-/* }
-#header__history:hover{
-    color: #000;
-}
-#header__history:active{
-    color: #504d4d;
-}
-*/
 .history-modal-container {
     position: fixed;
     top: 0;
@@ -174,7 +172,7 @@
     border-radius: 4px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: all  ease.3s;
+    transition: all ease.3s;
 }
 
 .history-item:hover {
@@ -205,10 +203,6 @@
     font-size: 1.4rem;
 }
 
-.header__nav {
-    cursor: pointer;
-}
-
 /* Media Queries: Cho màn hình nhỏ hơn 768px */
 @media (max-width: 768px) {
     .header {
@@ -233,6 +227,17 @@
 
     .header__nav {
         position: relative;
-        font-size: 0.9rem; 
+        font-size: 0.9rem;
+    }
+    
+    #header__history{
+        order: 1;
+        left: 18%;        
+    }
+
+    .toggle-switch{
+        order: 2;
+        justify-self: flex-end;
+        left: 20vw;
     }
 }

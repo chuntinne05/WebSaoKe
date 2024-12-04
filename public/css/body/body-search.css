@@ -60,8 +60,15 @@ input[type="text"] {
 
 input::placeholder {
 	font-size: 14px;
-	color: #fff;
+	color: black;
+	transition: color 0.5s;
 }
+
+.dark-mode input::placeholder{
+	color: white;
+	transition: color 0.5s;
+}
+
 .body__search-input {
 	display: flex;
 }
@@ -78,8 +85,11 @@ input::placeholder {
 	cursor: pointer;
 	transition: all 0.2s ease;
 	display: flex;
+	flex: 1;
 	align-items: center; /* Căn giữa theo chiều dọc */
 	justify-content: center;
+	min-width: 50px;
+	min-height: 50px;
 }
 .header__search-select:hover {
 	background-color: rgb(167, 167, 174);
@@ -144,6 +154,7 @@ input::placeholder {
 	border: none;
 	outline: none;
 }
+
 @media screen and (max-width: 768px) {
 	.body__search {
 		flex-direction: column; /* Chuyển các thành phần thành cột */
@@ -163,7 +174,7 @@ input::placeholder {
 	}
 
 	/* Đảm bảo nút tìm kiếm vẫn giữ được vị trí đúng */
-	.header__search-select {
+	.header__search-select{
 		width: 100%;
 		text-align: center;
 		margin-top: 10px;

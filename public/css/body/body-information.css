@@ -1,13 +1,17 @@
 .body__information {
     margin: 40px 0px 50px 40px;
+    color: var(--light-theme);
     position: relative;
     width: 90%; /* Chiếm 90% chiều ngang màn hình */
     max-width: 1200px; /* Giới hạn chiều rộng tối đa */
 }
 
+.body__information.dark-mode{
+    color: var(--dark-theme);
+}
+
 .body__information h1{
     position: relative;
-    color: black;
     font-size: 2.4rem;
     font-weight: bold;
     letter-spacing: 1px;
@@ -16,7 +20,6 @@
 }
 .body__information p{
     position: relative;
-    color: black;
     font-size: 1.5rem;
     font-weight: 600px;
     letter-spacing: 1px;
@@ -29,13 +32,17 @@
     left: 0;
     bottom: -10px;
     height:  4px;
-    background: black ;
+    background: var(--light-theme);
     width: 60%; /* Độ dài gạch ngang */
     max-width: 300px; /* Giới hạn chiều dài gạch ngang */
     height: 4px;
-    background: black;
+    transition: background-color 0.5s;
 }
 
+.body__information.dark-mode p::before{
+    background: var(--dark-theme);
+    transition: background-color 0.5s;
+}
 
 @media (max-width: 768px) {
     .body__information h1 {

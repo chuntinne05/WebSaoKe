@@ -33,8 +33,10 @@
 	--black-color: #333;
 	--text-color: #333;
 	--green-color: #2ecc71;
-	--web-color: #41c9e2;
+	--web-color: #757575;
 	--web-color-active: #35a7bb;
+	--light-theme: black;
+	--dark-theme: white;
 }
 
 * {
@@ -47,10 +49,10 @@ body {
 	line-height: 1.6rem;
 	font-family: "Nunito", sans-serif;
 	box-sizing: border-box;
-	background-color: #ffffff;
+	background-image: url("/images/Day.png");
 	background-color: black;
+	color: var(--light-theme);
 
-	background-image: url("/images/background_day.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -60,9 +62,9 @@ body {
 }
 
 body.dark-mode {
-	background-color: var(--dark-background);
-	color: var(--dark-text);
-	background-image: url("/images/background_night.png");
+	background-color: var(--light-theme);
+	color: var(--dark-theme);
+	background-image: url("/images/Night.png");
 }
 
 /* tương thích với các kích thước màn hình */
@@ -158,6 +160,7 @@ body.dark-mode {
 
 .sun {
 	opacity: 1;
+	z-index: 0;
 }
 
 .moon {

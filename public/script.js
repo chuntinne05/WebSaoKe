@@ -8,25 +8,46 @@ const first = document.getElementById("first_page");
 const last = document.getElementById("last_page");
 const search = document.getElementById("search_button");
 const resultDiv = document.getElementById("resultDiv");
-const historyNav = document.querySelector(".header__nav");
+const historyNav = document.querySelector("#header__history");
 
 const darkModeToggle = document.getElementById("darkModeToggle");
 
 if (localStorage.getItem("darkMode") === "enabled") {
 	document.body.classList.add("dark-mode");
+
+	document.getElementById("header__history").classList.add("dark-mode"); //TEST DARK MODE HISTORY
+
 	darkModeToggle.checked = true;
 }
 
 darkModeToggle.addEventListener("change", () => {
 	if (darkModeToggle.checked) {
 		document.body.classList.add("dark-mode");
-		localStorage.setItem("darkMode", "enabled"); 
+		localStorage.setItem("darkMode", "enabled");
+		document.body.style.transition =
+			"background-image 0.5s ease-in-out, color 0.5s";
 
-		document.body.style.transition = "background-image 0.5s ease-in-out";
+		// HISTORY
+		document.getElementById("header__history").classList.add("dark-mode");
+		document.getElementById("header__history").style.transition = "color 0.5s";
+		// BODY INFORMATION
+		document.querySelector("div.body__information").classList.add("dark-mode");
+		document.querySelector("div.body__information.dark-mode").style.transition =
+			"color 0.5s";
 	} else {
 		document.body.classList.remove("dark-mode");
-		localStorage.setItem("darkMode", "disabled"); 
-		document.body.style.transition = "background-image 0.5s ease-in-out";
+		localStorage.setItem("darkMode", "disabled");
+		document.body.style.transition =
+			"background-image 0.5s ease-in-out, color 0.5s";
+		// HISTORY
+		document.getElementById("header__history").classList.remove("dark-mode");
+		document.getElementById("header__history").style.transition = "color 0.5s";
+		// BODY INFORMATION
+		document
+			.querySelector("div.body__information.dark-mode")
+			.classList.remove("dark-mode");
+		document.querySelector("div.body__information").style.transition =
+			"color 0.5s";
 	}
 });
 
