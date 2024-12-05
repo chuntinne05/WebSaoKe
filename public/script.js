@@ -40,13 +40,16 @@ function performSearch() {
 	const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
 
+	document.getElementById("loading").style.display="flex";
 	saveSearchToHistory();
 
 	fetch(
 		`/search?date=${date}&amount=${amount}&content=${content}&page=${current_page}`
 	)
+
 		.then((response) => response.json())
 		.then((data) => {
+			document.getElementById("loading").style.display="none";
 			if (data.error) {
 				alert("Lỗi: " + data.error);
 			} else {
@@ -58,6 +61,7 @@ function performSearch() {
 			}
 		})
 		.catch((error) => {
+			document.getElementById("loading").style.display="none";
 			console.error("Lỗi khi tìm kiếm", error);
 			alert("Đã xảy ra lỗi khi tìm kiếm!!!");
 		});
@@ -370,6 +374,8 @@ if (localStorage.getItem("darkMode") === "enabled") {
 	for (let i = 0; i < elements.length; i++)
 		elements[i].classList.add("dark-mode");
 
+	dateOptions.classList.add("dark-mode");
+
 	darkModeToggle.checked = true;
 }
 darkModeToggle.addEventListener("change", () => {
@@ -386,10 +392,12 @@ darkModeToggle.addEventListener("change", () => {
 		document.querySelector("div.body__information").classList.add("dark-mode");
 		document.querySelector("div.body__information.dark-mode").style.transition =
 			"color 0.5s";
-		//
+		//BUTTON SEARCH AND PDF
 		const elements = document.querySelectorAll(".body__search button");
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.add("dark-mode");
+
+		dateOptions.classList.add("dark-mode");
 	} else {
 		document.body.classList.remove("dark-mode");
 		localStorage.setItem("darkMode", "disabled");
@@ -410,8 +418,8 @@ darkModeToggle.addEventListener("change", () => {
 		);
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.remove("dark-mode");
-		document.querySelectorAll(".body__search button").style.transition =
-			"color 0.5s";
+		
+		dateOptions.classList.remove("dark-mode");
 	}
 });
 
@@ -549,190 +557,3 @@ document
 	.getElementById("pdf-export-button")
 	.addEventListener("click", exportAllResultsToPDF);
 
-function createTransactionChart(results, searchParams) {
-	// Kiểm tra điều kiện hiển thị biểu đồ
-	if (searchParams.date && searchParams.amount) return;
-
-	// Tạo container cho biểu đồ nếu chưa tồn tại
-	let chartContainer = document.getElementById("chart-container");
-	if (!chartContainer) {
-		chartContainer = document.createElement("div");
-		chartContainer.id = "chart-container";
-		chartContainer.style.width = "100%";
-		chartContainer.style.height = "500px";
-		document.querySelector(".body__search").appendChild(chartContainer);
-	}
-
-	// Tạo canvas
-	chartContainer.innerHTML = '<canvas id="transactionChart"></canvas>';
-	const ctx = document.getElementById("transactionChart").getContext("2d");
-
-	// Xử lý dữ liệu cho biểu đồ
-	let chartData = {};
-	let totalAmount = 0;
-
-	// Logic xử lý dữ liệu theo từng trường tìm kiếm
-	if (searchParams.date && !searchParams.amount) {
-		// Nhóm theo nội dung chuyển khoản
-		results.forEach((transaction) => {
-			const category = transaction.detail || "Không xác định";
-			const amount = transaction.credit || transaction.debit || 0;
-
-			chartData[category] = (chartData[category] || 0) + Math.abs(amount);
-			totalAmount += Math.abs(amount);
-		});
-	} else if (searchParams.amount && !searchParams.date) {
-		// Nhóm theo ngày
-		results.forEach((transaction) => {
-			const date = transaction.date_time?.split("_")[0] || "Không xác định";
-			const amount = transaction.credit || transaction.debit || 0;
-
-			chartData[date] = (chartData[date] || 0) + Math.abs(amount);
-			totalAmount += Math.abs(amount);
-		});
-	}
-
-	// Kiểm tra xem có dữ liệu để vẽ không
-	if (Object.keys(chartData).length === 0) return;
-
-	// Tạo mảng cho biểu đồ
-	const labels = Object.keys(chartData);
-	const data = Object.values(chartData);
-
-	// Tạo nút đóng/mở biểu đồ
-	const toggleButton = document.createElement("button");
-	toggleButton.textContent = "Hiện/Ẩn Biểu Đồ";
-	toggleButton.className = "btn btn-secondary mb-3";
-	toggleButton.style.display = "block";
-	toggleButton.style.margin = "10px auto";
-
-	chartContainer.insertBefore(toggleButton, chartContainer.firstChild);
-
-	// Tạo phần chú thích chi tiết
-	const legendContainer = document.createElement("div");
-	legendContainer.id = "chart-legend";
-	legendContainer.style.display = "flex";
-	legendContainer.style.flexWrap = "wrap";
-	legendContainer.style.justifyContent = "center";
-	legendContainer.style.gap = "10px";
-	legendContainer.style.marginTop = "20px";
-
-	// Tạo mảng màu gradient
-	const createGradientColors = (num) => {
-		const baseColors = [
-			"rgba(54, 162, 235, 1)", // Blue
-			"rgba(255, 99, 132, 1)", // Red
-			"rgba(75, 192, 192, 1)", // Green
-			"rgba(255, 206, 86, 1)", // Yellow
-			"rgba(153, 102, 255, 1)", // Purple
-		];
-		return baseColors.slice(0, num);
-	};
-
-	const backgroundColors = createGradientColors(labels.length);
-
-	// Khởi tạo biểu đồ đường
-	const chart = new Chart(ctx, {
-		type: "line",
-		data: {
-			labels: labels,
-			datasets: [
-				{
-					label: searchParams.date
-						? "Phân Bố Theo Nội Dung Chuyển Khoản"
-						: "Phân Bố Theo Ngày",
-					data: data,
-					borderColor: backgroundColors,
-					backgroundColor: backgroundColors.map((color) =>
-						color.replace("1)", "0.2)")
-					),
-					borderWidth: 2,
-					fill: true,
-					tension: 0.1,
-				},
-			],
-		},
-		options: {
-			responsive: true,
-			plugins: {
-				title: {
-					display: true,
-					text: searchParams.date
-						? "Phân Bố Theo Nội Dung Chuyển Khoản"
-						: "Phân Bố Theo Ngày",
-					font: {
-						size: 16,
-					},
-				},
-				tooltip: {
-					callbacks: {
-						label: function (context) {
-							const value = context.parsed.y;
-							const percentage = ((value / totalAmount) * 100).toFixed(2);
-							return `${context.label}: ${value.toLocaleString(
-								"vi-VN"
-							)} VNĐ (${percentage}%)`;
-						},
-					},
-				},
-			},
-			scales: {
-				y: {
-					beginAtZero: true,
-					title: {
-						display: true,
-						text: "Số tiền (VNĐ)",
-					},
-				},
-			},
-		},
-	});
-
-	// Tạo chú thích chi tiết
-	labels.forEach((label, index) => {
-		const legendItem = document.createElement("div");
-		legendItem.style.display = "flex";
-		legendItem.style.alignItems = "center";
-		legendItem.style.margin = "5px";
-
-		const colorBox = document.createElement("span");
-		colorBox.style.width = "20px";
-		colorBox.style.height = "20px";
-		colorBox.style.backgroundColor = backgroundColors[index];
-		colorBox.style.marginRight = "10px";
-
-		const labelText = document.createElement("span");
-		const amount = data[index];
-		const percentage = ((amount / totalAmount) * 100).toFixed(2);
-
-		labelText.textContent = `${label}: ${amount.toLocaleString(
-			"vi-VN"
-		)} VNĐ (${percentage}%)`;
-
-		legendItem.appendChild(colorBox);
-		legendItem.appendChild(labelText);
-		legendContainer.appendChild(legendItem);
-	});
-
-	// Thêm tổng số tiền
-	const totalAmountElement = document.createElement("div");
-	totalAmountElement.style.textAlign = "center";
-	totalAmountElement.style.fontWeight = "bold";
-	totalAmountElement.style.marginTop = "10px";
-	totalAmountElement.textContent = `Tổng số tiền: ${totalAmount.toLocaleString(
-		"vi-VN"
-	)} VNĐ`;
-
-	chartContainer.appendChild(legendContainer);
-	chartContainer.appendChild(totalAmountElement);
-
-	// Xử lý nút đóng/mở
-	toggleButton.addEventListener("click", () => {
-		chart.canvas.style.display =
-			chart.canvas.style.display === "none" ? "block" : "none";
-		legendContainer.style.display =
-			legendContainer.style.display === "none" ? "flex" : "none";
-		totalAmountElement.style.display =
-			totalAmountElement.style.display === "none" ? "block" : "none";
-	});
-}

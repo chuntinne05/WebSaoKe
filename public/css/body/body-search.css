@@ -35,14 +35,21 @@ input[type="text"] {
 	font-weight: normal;
 	box-shadow: 2px 4px 4px -2px black;
 }
+
 .date-options div {
 	padding: 10px;
 	cursor: pointer;
 	transition: background-color 0.2s;
 }
+
 .date-options div:hover {
-	background-color: #f0f0f0;
+	background-color: var(--dark-theme);
 }
+
+.dark-mode.date-options div:hover{
+	background-color: var(--light-theme);
+}
+
 .date-options div.selected {
 	background-color: #e0e0e0;
 }
@@ -147,15 +154,13 @@ input::placeholder {
 	bottom: 0;
 	opacity: 0;
 	content: "";
-	background-color: var(--web-color);
 	z-index: -1;
+	background-color: var(--web-color);
 }
-.body__search button:hover,
-.body__search button:focus {
+.body__search button:hover{
 	color: white;
 }
-.body__search button:hover:before,
-.body__search button:focus:before {
+.body__search button:hover:before{
 	transition: 0.5s all ease;
 	left: 0;
 	right: 0;
@@ -182,14 +187,12 @@ input::placeholder {
 	#pdf-export-button {
 		width: 100%; /* Các input sẽ có độ rộng 100% */
 	}
-
 	/* Đảm bảo nút tìm kiếm vẫn giữ được vị trí đúng */
 	.header__search-select {
 		width: 100%;
 		text-align: center;
 		margin-top: 10px;
 	}
-
 	.date-options {
 		min-width: 100%;
 		display: inline-block;
@@ -197,3 +200,35 @@ input::placeholder {
 		font-size: 1.5rem;
 	}
 }
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+	width: 70px;
+	height: 50px;
+	box-sizing: border-box;
+	background:
+	  conic-gradient(from 135deg at top,#0000, #fff 1deg 90deg,#0000 91deg) right -20px bottom 8px/18px 9px,
+	  linear-gradient(#fff 0 0) bottom/100% 8px,
+	  #000;
+	background-repeat: no-repeat;
+	border-bottom: 8px solid #000;
+	position: relative;
+	animation: l7-0 2s infinite linear;
+  }
+  .loader::before {
+	content: "";
+	position: absolute;
+	width: 10px;
+	height: 14px;
+	background: lightblue;
+	left: 10px;
+	animation: l7-1 2s infinite cubic-bezier(0,200,1,200);
+  }
+  @keyframes l7-0{
+	100% { background-position: left -20px bottom 8px,bottom}
+  }
+  @keyframes l7-1{
+	0%,50%   {bottom: 8px}
+	90%,100% {bottom: 8.1px}
+  }
