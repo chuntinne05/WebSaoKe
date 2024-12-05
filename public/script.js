@@ -8,258 +8,15 @@ const first = document.getElementById("first_page");
 const last = document.getElementById("last_page");
 const search = document.getElementById("search_button");
 const resultDiv = document.getElementById("resultDiv");
-const historyNav = document.querySelector("#header__history");
 
-const darkModeToggle = document.getElementById("darkModeToggle");
+//----------Chức năng tìm kiếm chính----------//
 
-if (localStorage.getItem("darkMode") === "enabled") {
-	document.body.classList.add("dark-mode");
-
-	document.getElementById("header__history").classList.add("dark-mode"); //DARK MODE HISTORY
-	document.querySelector("div.body__information").classList.add("dark-mode"); //DARK MODE BODY INFORMATION
-
-	const elements = document.querySelectorAll(".body__search button"); //DARK MODE BODY SEARCH BUTTON
-	for (let i = 0; i < elements.length; i++)
-		elements[i].classList.add("dark-mode");
-
-	darkModeToggle.checked = true;
-}
-
-darkModeToggle.addEventListener("change", () => {
-	if (darkModeToggle.checked) {
-		document.body.classList.add("dark-mode");
-		localStorage.setItem("darkMode", "enabled");
-		document.body.style.transition =
-			"background-image 0.5s ease-in-out, color 0.5s";
-
-		// HISTORY
-		document.getElementById("header__history").classList.add("dark-mode");
-		document.getElementById("header__history").style.transition = "color 0.5s";
-		// BODY INFORMATION
-		document.querySelector("div.body__information").classList.add("dark-mode");
-		document.querySelector("div.body__information.dark-mode").style.transition =
-			"color 0.5s";
-		// BODY SEARCH INPUT ELEMENT
-		//mac du ko hieu sao nhung ma tu nhien code chay dc 👌
-		//BUTTON SEARCH AND PDF
-		const elements = document.querySelectorAll(".body__search button");
-		for (let i = 0; i < elements.length; i++)
-			elements[i].classList.add("dark-mode");
-	} else {
-		document.body.classList.remove("dark-mode");
-		localStorage.setItem("darkMode", "disabled");
-		document.body.style.transition =
-			"background-image 0.5s ease-in-out, color 0.5s";
-		// HISTORY
-		document.getElementById("header__history").classList.remove("dark-mode");
-		document.getElementById("header__history").style.transition = "color 0.5s";
-		// BODY INFORMATION
-		document
-			.querySelector("div.body__information.dark-mode")
-			.classList.remove("dark-mode");
-		document.querySelector("div.body__information").style.transition =
-			"color 0.5s";
-		////BUTTON SEARCH AND PDF
-		const elements = document.querySelectorAll(
-			".body__search button.dark-mode"
-		);
-		for (let i = 0; i < elements.length; i++)
-			elements[i].classList.remove("dark-mode");
-		document.querySelectorAll(".body__search button").style.transition =
-			"color 0.5s";
-	}
-});
-
-window.addEventListener("load", () => {
-	if (localStorage.getItem("darkMode") === "enabled") {
-		document.body.classList.add("dark-mode");
-		darkModeToggle.checked = true;
-	}
-});
-
-function createHiddenImageModal(imagePath) {
-	// Create modal container
-	const modalContainer = document.createElement("div");
-	modalContainer.id = "hidden-image-modal";
-	modalContainer.style.position = "fixed";
-	modalContainer.style.top = "0";
-	modalContainer.style.left = "0";
-	modalContainer.style.width = "100%";
-	modalContainer.style.height = "100%";
-	modalContainer.style.backgroundColor = "rgba(0,0,0,0.8)";
-	modalContainer.style.zIndex = "1000";
-	modalContainer.style.display = "flex";
-	modalContainer.style.justifyContent = "center";
-	modalContainer.style.alignItems = "center";
-
-	// Create image
-	const hiddenImage = document.createElement("img");
-	hiddenImage.src = imagePath;
-	hiddenImage.style.maxWidth = "90%";
-	hiddenImage.style.maxHeight = "90%";
-	hiddenImage.style.objectFit = "contain";
-
-	// Create close button
-	const closeButton = document.createElement("button");
-	closeButton.textContent = "Đóng";
-	closeButton.style.position = "absolute";
-	closeButton.style.top = "20px";
-	closeButton.style.right = "20px";
-	closeButton.style.padding = "10px 20px";
-	closeButton.style.backgroundColor = "white";
-	closeButton.style.color = "black";
-	closeButton.style.border = "none";
-	closeButton.style.borderRadius = "5px";
-	closeButton.style.cursor = "pointer";
-
-	// Add close functionality
-	closeButton.addEventListener("click", () => {
-		document.body.removeChild(modalContainer);
-	});
-
-	// Assemble modal
-	modalContainer.appendChild(hiddenImage);
-	modalContainer.appendChild(closeButton);
-
-	return modalContainer;
-}
-// xoa lich su khi reset trang
-window.onload = function () {
-	sessionStorage.removeItem("searchHistory");
-};
-function saveSearchToHistory() {
-	const date = document.getElementById("date_input").value;
-	const amount = document.getElementById("amount_input").value;
-	const content = document.getElementById("content_input").value;
-
-	if (!date && !amount && !content) return; // neu khong co truong nao thi kh luu
-
-	let searchHistory = sessionStorage.getItem("searchHistory");
-	searchHistory = searchHistory ? JSON.parse(searchHistory) : [];
-
-	const newSearch = {
-		date,
-		amount,
-		content,
-		timestamp: new Date().toISOString(),
-	};
-
-	// check xem co tim kiem cai do truoc chua
-	const isDuplicate = searchHistory.some(
-		(item) =>
-			item.date === newSearch.date &&
-			item.amount === newSearch.amount &&
-			item.content === newSearch.content
-	);
-
-	if (isDuplicate) {
-		// neu co trung, xoa cai cu, them cai moi
-		searchHistory = searchHistory.filter(
-			(item) =>
-				!(
-					item.date === newSearch.date &&
-					item.amount === newSearch.amount &&
-					item.content === newSearch.content
-				)
-		);
-	}
-	searchHistory.unshift(newSearch);
-	sessionStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-}
-
-function showHistoryModal() {
-	// tao model container
-	const modalContainer = document.createElement("div");
-	modalContainer.className = "history-modal-container";
-
-	// tao noi dung model
-	const modalContent = document.createElement("div");
-	modalContent.className = "history-modal-content";
-
-	// tao header model
-	const modalHeader = document.createElement("div");
-	modalHeader.className = "history-modal-header";
-	modalHeader.innerHTML = `
-        <h2>Lịch sử tìm kiếm</h2>
-        <button class="close-modal">×</button>
-    `;
-
-	// tao body model
-	const modalBody = document.createElement("div");
-	modalBody.className = "history-modal-body";
-
-	// call history
-	const searchHistory = JSON.parse(
-		sessionStorage.getItem("searchHistory") || "[]"
-	);
-
-	// neu chua co du lieu
-	if (searchHistory.length === 0) {
-		modalBody.innerHTML = '<p class="no-history">Chưa có lịch sử tìm kiếm</p>';
-	} else {
-		// neu co du lieu
-		const historyList = searchHistory
-			.map(
-				(item) => `
-            <div class="history-item" data-search='${JSON.stringify(item)}'>
-                <div class="history-item-details">
-                    ${item.date ? `<span>Ngày: ${item.date}</span>` : ""}
-                    ${item.amount ? `<span>Số tiền: ${item.amount}</span>` : ""}
-                    ${
-											item.content
-												? `<span>Nội dung: ${item.content}</span>`
-												: ""
-										}
-                </div>
-                <div class="history-item-time">
-                    ${new Date(item.timestamp).toLocaleString()}
-                </div>
-            </div>
-        `
-			)
-			.join("");
-		modalBody.innerHTML = historyList;
-	}
-
-	// ghep cac model lai
-	modalContent.appendChild(modalHeader);
-	modalContent.appendChild(modalBody);
-	modalContainer.appendChild(modalContent);
-	document.body.appendChild(modalContainer);
-
-	// khi dong history
-	const closeBtn = modalContainer.querySelector(".close-modal");
-	closeBtn.onclick = () => {
-		document.body.removeChild(modalContainer);
-	};
-
-	// click ra ngoai cung tat
-	modalContainer.onclick = (e) => {
-		if (e.target === modalContainer) {
-			document.body.removeChild(modalContainer);
-		}
-	};
-
-	// event khi an vao lich su
-	const historyItems = modalBody.querySelectorAll(".history-item");
-	historyItems.forEach((item) => {
-		item.onclick = () => {
-			const searchData = JSON.parse(item.dataset.search);
-			document.getElementById("date_input").value = searchData.date || "";
-			document.getElementById("amount_input").value = searchData.amount || "";
-			document.getElementById("content_input").value = searchData.content || "";
-			document.body.removeChild(modalContainer);
-			performSearch();
-		};
-	});
-}
-
-//Chuc nang tim kiem khi bam nut
+//Chức năng tìm kiếm khi bấm nút
 search.addEventListener("click", () => {
 	current_page = 1;
 	performSearch();
 });
-//Ham kiem tra co du lieu da duoc nhap
+//Hàm kiểm tra dữ liệu đã được nhập ở các ô input chưa
 function areInputsValid() {
 	const date = document.getElementById("date_input").value.trim();
 	const amount = document.getElementById("amount_input").value.trim();
@@ -267,7 +24,7 @@ function areInputsValid() {
 
 	return date || amount || content;
 }
-//Chuc nang tim kiem khi nhan enter
+//Chức năng tìm kiếm khi nhấn enter
 document.addEventListener("keydown", function (event) {
 	if (event.key === "Enter") {
 		event.preventDefault();
@@ -277,27 +34,11 @@ document.addEventListener("keydown", function (event) {
 		}
 	}
 });
-//Ham gui yeu cau tu front sang back de lay data
+//Hàm gửi yêu cầu từ front sang back
 function performSearch() {
-	const searchStartTime = performance.now();
 	const date = document.getElementById("date_input").value;
 	const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
-
-	if (content.toLowerCase() === "huy" && amount === "2311202") {
-		const hiddenModal = createHiddenImageModal(
-			"/images/z6036849628292_a8e19fbc0d25917ca6adf422d2c16c00.jpg"
-		);
-		document.body.appendChild(hiddenModal);
-		return; // Stop further search
-	}
-
-	// Check for the second hidden trigger
-	if (content.toLowerCase().includes("tieudoi6")) {
-		const hiddenModal = createHiddenImageModal("/images/IMG_0499.JPG"); // Replace with your second image path
-		document.body.appendChild(hiddenModal);
-		return; // Stop further search
-	}
 
 	saveSearchToHistory();
 
@@ -314,11 +55,6 @@ function performSearch() {
 				displayResults(data.results, data.totalResults, current_page);
 				updatePage();
 				updatePagination();
-
-				// createTransactionChart(data.results, {
-				// 	date: document.getElementById("date_input").value,
-				// 	amount: document.getElementById("amount_input").value,
-				// });
 			}
 		})
 		.catch((error) => {
@@ -326,21 +62,22 @@ function performSearch() {
 			alert("Đã xảy ra lỗi khi tìm kiếm!!!");
 		});
 }
-historyNav.addEventListener("click", showHistoryModal);
 
-// chinh sua dinh dang ngay
+
+// Hàm chỉnh sửa định dạng ngày
 function formatDate(dateTimeString) {
 	if (!dateTimeString) return "-";
 	const datePart = dateTimeString.split("_")[0];
 	const [day, month, year] = datePart.split("/");
 	return `${day}/${month}/${year}`;
 }
-//Ham hien thi ket qua
+
+//Hàm hiển thị kết quả
 function displayResults(results, totalResults, page) {
 	const resultsBody = document.getElementById("resultsBody");
 	resultsBody.innerHTML = "";
 
-	// Nếu không có kết quả, hiển thị thông báo trong bảng
+	// Trường hợp không có kết quả
 	if (results.length === 0) {
 		const row = document.createElement("tr");
 		const cell = document.createElement("td");
@@ -352,7 +89,7 @@ function displayResults(results, totalResults, page) {
 		return;
 	}
 
-	// Thêm dữ liệu mới vào bảng
+	// Thêm dữ liệu vào bảng
 	results.forEach((transaction) => {
 		const row = document.createElement("tr");
 		row.classList.add("menu_row");
@@ -372,21 +109,54 @@ function displayResults(results, totalResults, page) {
 		resultsBody.appendChild(row);
 	});
 }
+
+// Thêm sự kiện focus cho từng input
 const inputs = document.querySelectorAll(
 	"#date_input, #amount_input, #content_input"
 );
 
-// Thêm sự kiện focus cho từng input
 inputs.forEach((input) => {
 	input.addEventListener("focus", () => {
 		input.value = ""; // Xóa nội dung cũ
 	});
 });
-//Ham lam cho nut bam xuat hien
+
+const dateInput = document.getElementById("date_input");
+const dateOptions = document.getElementById("date-options");
+
+//Hiển thị danh sách khi chọn
+dateInput.addEventListener("focus", () => {
+	dateOptions.style.display = "block";
+});
+
+// Ẩn danh sách khi click ngoài
+document.addEventListener("click", (e) => {
+	if (!e.target.closest(".date-picker-container")) {
+		dateOptions.style.display = "none";
+	}
+});
+
+// Xử lý sự kiện click chọn ngày
+dateOptions.addEventListener("click", (e) => {
+	const selectedDate = e.target.getAttribute("data-date");
+	if (selectedDate) {
+		dateInput.value = selectedDate;
+		dateOptions.style.display = "none"; // Ẩn danh sách sau khi chọn
+	}
+});
+// Cho phép xóa và nhập thủ công
+dateInput.addEventListener("input", () => {
+	// Nếu người dùng nhập mới, không làm gì thêm
+	dateOptions.style.display = "none";
+});
+
+//Hàm hiện nút chuyển trang 
 function updatePage() {
 	prev.disabled = current_page === 1;
 	next.disabled = current_page >= Math.ceil(totalResult / pageSize);
 }
+
+//Chức năng nút chuyển trang
 prev.addEventListener("click", () => {
 	if (current_page > 1) {
 		current_page--;
@@ -399,7 +169,7 @@ next.addEventListener("click", () => {
 		performSearch();
 	}
 });
-
+//Hàm update số trang 
 function updatePagination() {
 	const paginationContainer = document.getElementById("pagination");
 	paginationContainer.innerHTML = "";
@@ -440,6 +210,7 @@ function updatePagination() {
 		}
 	}
 }
+//Chức năng cho nút chuyển trang đầu và cuối
 first.addEventListener("click", () => {
 	current_page = 1;
 	performSearch();
@@ -448,55 +219,231 @@ last.addEventListener("click", () => {
 	current_page = Math.ceil(totalResult / pageSize);
 	performSearch();
 });
+//----------end----------//
 
-const dateInput = document.getElementById("date_input");
-const dateOptions = document.getElementById("date-options");
+//----------Lịch sử tìm kiếm----------//
+const historyNav = document.querySelector("#header__history");
+// Xóa lịch sử khi reset trang
+window.onload = function () {
+	sessionStorage.removeItem("searchHistory");
+};
+//Hàm lưu lịch sử tìm kiếm
+function saveSearchToHistory() {
+	const date = document.getElementById("date_input").value;
+	const amount = document.getElementById("amount_input").value;
+	const content = document.getElementById("content_input").value;
 
-// Hiển thị danh sách khi click vào ô nhập
-dateInput.addEventListener("focus", () => {
-	dateOptions.style.display = "block";
-});
+	if (!date && !amount && !content) return; 
 
-// Ẩn danh sách khi click ngoài
-document.addEventListener("click", (e) => {
-	if (!e.target.closest(".date-picker-container")) {
-		dateOptions.style.display = "none";
+	let searchHistory = sessionStorage.getItem("searchHistory");
+	searchHistory = searchHistory ? JSON.parse(searchHistory) : [];
+
+	const newSearch = {
+		date,
+		amount,
+		content,
+		timestamp: new Date().toISOString(),
+	};
+
+	// Kiểm tra xem đã có tìm kiếm đó trước chưa
+	const isDuplicate = searchHistory.some(
+		(item) =>
+			item.date === newSearch.date &&
+			item.amount === newSearch.amount &&
+			item.content === newSearch.content
+	);
+
+	if (isDuplicate) {
+		// Nếu có trùng, xóa cái cũ thêm cái mới
+		searchHistory = searchHistory.filter(
+			(item) =>
+				!(
+					item.date === newSearch.date &&
+					item.amount === newSearch.amount &&
+					item.content === newSearch.content
+				)
+		);
+	}
+	searchHistory.unshift(newSearch);
+	sessionStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+//Hàm hiển thị lịch sử tìm kiếm
+function showHistoryModal() {
+	// Tạo container
+	const modalContainer = document.createElement("div");
+	modalContainer.className = "history-modal-container";
+
+	// Tạo nội dung
+	const modalContent = document.createElement("div");
+	modalContent.className = "history-modal-content";
+
+	// Tạo header
+	const modalHeader = document.createElement("div");
+	modalHeader.className = "history-modal-header";
+	modalHeader.innerHTML = `
+        <h2>Lịch sử tìm kiếm</h2>
+        <button class="close-modal">×</button>
+    `;
+
+	// Tạo body
+	const modalBody = document.createElement("div");
+	modalBody.className = "history-modal-body";
+
+	// Gọi lịch sử
+	const searchHistory = JSON.parse(
+		sessionStorage.getItem("searchHistory") || "[]"
+	);
+
+	// Nếu chưa có dữ liệu
+	if (searchHistory.length === 0) {
+		modalBody.innerHTML = '<p class="no-history">Chưa có lịch sử tìm kiếm</p>';
+	} else {
+		// Nếu có dữ liệu
+		const historyList = searchHistory
+			.map(
+				(item) => `
+            <div class="history-item" data-search='${JSON.stringify(item)}'>
+                <div class="history-item-details">
+                    ${item.date ? `<span>Ngày: ${item.date}</span>` : ""}
+                    ${item.amount ? `<span>Số tiền: ${item.amount}</span>` : ""}
+                    ${
+											item.content
+												? `<span>Nội dung: ${item.content}</span>`
+												: ""
+										}
+                </div>
+                <div class="history-item-time">
+                    ${new Date(item.timestamp).toLocaleString()}
+                </div>
+            </div>
+        `
+			)
+			.join("");
+		modalBody.innerHTML = historyList;
+	}
+
+	// Ghép các modal lại
+	modalContent.appendChild(modalHeader);
+	modalContent.appendChild(modalBody);
+	modalContainer.appendChild(modalContent);
+	document.body.appendChild(modalContainer);
+
+	// Khi đóng lịch sử
+	const closeBtn = modalContainer.querySelector(".close-modal");
+	closeBtn.onclick = () => {
+		document.body.removeChild(modalContainer);
+	};
+
+	// Click ra ngoài cũng tắt
+	modalContainer.onclick = (e) => {
+		if (e.target === modalContainer) {
+			document.body.removeChild(modalContainer);
+		}
+	};
+
+	// Chức năng khi nhấn vào lịch sử
+	const historyItems = modalBody.querySelectorAll(".history-item");
+	historyItems.forEach((item) => {
+		item.onclick = () => {
+			const searchData = JSON.parse(item.dataset.search);
+			document.getElementById("date_input").value = searchData.date || "";
+			document.getElementById("amount_input").value = searchData.amount || "";
+			document.getElementById("content_input").value = searchData.content || "";
+			document.body.removeChild(modalContainer);
+			performSearch();
+		};
+	});
+}
+historyNav.addEventListener("click", showHistoryModal);
+//----------end----------//
+
+//----------Chỉnh DarkMode----------//
+
+const darkModeToggle = document.getElementById("darkModeToggle");
+if (localStorage.getItem("darkMode") === "enabled") {
+	document.body.classList.add("dark-mode");
+
+	document.getElementById("header__history").classList.add("dark-mode"); 
+	document.querySelector("div.body__information").classList.add("dark-mode"); 
+
+	const elements = document.querySelectorAll(".body__search button"); 
+	for (let i = 0; i < elements.length; i++)
+		elements[i].classList.add("dark-mode");
+
+	darkModeToggle.checked = true;
+}
+darkModeToggle.addEventListener("change", () => {
+	if (darkModeToggle.checked) {
+		document.body.classList.add("dark-mode");
+		localStorage.setItem("darkMode", "enabled");
+		document.body.style.transition =
+			"background-image 0.5s ease-in-out, color 0.5s";
+
+		// HISTORY
+		document.getElementById("header__history").classList.add("dark-mode");
+		document.getElementById("header__history").style.transition = "color 0.5s";
+		// BODY INFORMATION
+		document.querySelector("div.body__information").classList.add("dark-mode");
+		document.querySelector("div.body__information.dark-mode").style.transition =
+			"color 0.5s";
+		//
+		const elements = document.querySelectorAll(".body__search button");
+		for (let i = 0; i < elements.length; i++)
+			elements[i].classList.add("dark-mode");
+	} else {
+		document.body.classList.remove("dark-mode");
+		localStorage.setItem("darkMode", "disabled");
+		document.body.style.transition =
+			"background-image 0.5s ease-in-out, color 0.5s";
+		// HISTORY
+		document.getElementById("header__history").classList.remove("dark-mode");
+		document.getElementById("header__history").style.transition = "color 0.5s";
+		// BODY INFORMATION
+		document
+			.querySelector("div.body__information.dark-mode")
+			.classList.remove("dark-mode");
+		document.querySelector("div.body__information").style.transition =
+			"color 0.5s";
+		//BUTTON SEARCH AND PDF
+		const elements = document.querySelectorAll(
+			".body__search button.dark-mode"
+		);
+		for (let i = 0; i < elements.length; i++)
+			elements[i].classList.remove("dark-mode");
+		document.querySelectorAll(".body__search button").style.transition =
+			"color 0.5s";
 	}
 });
 
-// Xử lý sự kiện click chọn ngày
-dateOptions.addEventListener("click", (e) => {
-	const selectedDate = e.target.getAttribute("data-date");
-	if (selectedDate) {
-		dateInput.value = selectedDate;
-		dateOptions.style.display = "none"; // Ẩn danh sách sau khi chọn
+window.addEventListener("load", () => {
+	if (localStorage.getItem("darkMode") === "enabled") {
+		document.body.classList.add("dark-mode");
+		darkModeToggle.checked = true;
 	}
 });
-// Cho phép xóa và nhập thủ công
-dateInput.addEventListener("input", () => {
-	// Nếu người dùng nhập mới, không làm gì thêm
-	dateOptions.style.display = "none";
-});
+//----------end----------//
+
+//----------Sắp xếp kết quả trong bảng----------//
 let daySortAscending = true; // Sort order for the day column
 let moneySortAscending = true; // Sort order for the money column
 
 const daySortButton = document.getElementById("daySortButton");
 const moneySortButton = document.getElementById("moneySortButton");
 
-// Event listener for sorting by day
+// Chức năng sắp xếp 
 daySortButton.addEventListener("click", () => {
 	sortTable("day", daySortAscending);
 	updateSortButtonState(daySortButton, daySortAscending);
 	daySortAscending = !daySortAscending; // Toggle sort order
 });
 
-// Event listener for sorting by money
 moneySortButton.addEventListener("click", () => {
 	sortTable("money", moneySortAscending);
 	updateSortButtonState(moneySortButton, moneySortAscending);
 	moneySortAscending = !moneySortAscending; // Toggle sort order
 });
 
+//Hàm sắp xếp
 function sortTable(column, ascending) {
 	current_result.sort((a, b) => {
 		let valueA, valueB;
@@ -514,7 +461,6 @@ function sortTable(column, ascending) {
 
 			return ascending ? valueA - valueB : valueB - valueA;
 		} else if (column === "money") {
-			// Use credit or debit for sorting, preferring credit
 			valueA = parseFloat(a.credit || a.debit || 0);
 			valueB = parseFloat(b.credit || b.debit || 0);
 
@@ -524,9 +470,11 @@ function sortTable(column, ascending) {
 		return 0;
 	});
 
-	// Re-display the sorted results
+	//Hiển thị lại lần nữa kết quả sau khi sắp xếp
 	displayResults(current_result, totalResult, current_page);
 }
+
+//Hàm hiển thị đúng nút bấm sắp xếp
 function updateSortButtonState(button, ascending) {
 	document.querySelectorAll(".sortButton").forEach((btn) => {
 		btn.classList.remove("sort-asc", "sort-desc");
@@ -542,6 +490,7 @@ function updateSortButtonState(button, ascending) {
 	}
 }
 
+//----------Chức năng xuất file PDF----------//
 function exportAllResultsToPDF() {
 	fetch(
 		`/search?date=${document.getElementById("date_input").value}&amount=${
@@ -566,7 +515,7 @@ function exportAllResultsToPDF() {
 					transaction.detail || "-",
 				]);
 
-				// Add table
+				//Thêm bảng
 				doc.autoTable({
 					startY: 60,
 					head: [["Date", "Credit", "Debit", "Detail"]],
@@ -584,7 +533,7 @@ function exportAllResultsToPDF() {
 					},
 				});
 
-				// Save the PDF
+				//Lưu file
 				doc.save(`ChuyenKhoan_${new Date().toISOString().split("T")[0]}.pdf`);
 			} else {
 				alert("Không có dữ liệu để xuất PDF");
