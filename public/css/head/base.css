@@ -65,6 +65,10 @@ body.dark-mode {
 	background-color: var(--light-theme);
 	color: var(--dark-theme);
 	background-image: url("/images/Night.png");
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	min-height: 100vh;
 }
 
 /* tương thích với các kích thước màn hình */
@@ -228,3 +232,5 @@ input:checked + .slider:before {
 .slider.round:before {
 	border-radius: 50%;
 }
+
+/* test */

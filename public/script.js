@@ -15,7 +15,12 @@ const darkModeToggle = document.getElementById("darkModeToggle");
 if (localStorage.getItem("darkMode") === "enabled") {
 	document.body.classList.add("dark-mode");
 
-	document.getElementById("header__history").classList.add("dark-mode"); //TEST DARK MODE HISTORY
+	document.getElementById("header__history").classList.add("dark-mode"); //DARK MODE HISTORY
+	document.querySelector("div.body__information").classList.add("dark-mode"); //DARK MODE BODY INFORMATION
+
+	const elements = document.querySelectorAll(".body__search button"); //DARK MODE BODY SEARCH BUTTON
+	for (let i = 0; i < elements.length; i++)
+		elements[i].classList.add("dark-mode");
 
 	darkModeToggle.checked = true;
 }
@@ -34,6 +39,12 @@ darkModeToggle.addEventListener("change", () => {
 		document.querySelector("div.body__information").classList.add("dark-mode");
 		document.querySelector("div.body__information.dark-mode").style.transition =
 			"color 0.5s";
+		// BODY SEARCH INPUT ELEMENT
+		//mac du ko hieu sao nhung ma tu nhien code chay dc 👌
+		//BUTTON SEARCH AND PDF
+		const elements = document.querySelectorAll(".body__search button");
+		for (let i = 0; i < elements.length; i++)
+			elements[i].classList.add("dark-mode");
 	} else {
 		document.body.classList.remove("dark-mode");
 		localStorage.setItem("darkMode", "disabled");
@@ -47,6 +58,14 @@ darkModeToggle.addEventListener("change", () => {
 			.querySelector("div.body__information.dark-mode")
 			.classList.remove("dark-mode");
 		document.querySelector("div.body__information").style.transition =
+			"color 0.5s";
+		////BUTTON SEARCH AND PDF
+		const elements = document.querySelectorAll(
+			".body__search button.dark-mode"
+		);
+		for (let i = 0; i < elements.length; i++)
+			elements[i].classList.remove("dark-mode");
+		document.querySelectorAll(".body__search button").style.transition =
 			"color 0.5s";
 	}
 });
@@ -235,11 +254,28 @@ function showHistoryModal() {
 	});
 }
 
-//Event khi bam nut
+//Chuc nang tim kiem khi bam nut
 search.addEventListener("click", () => {
 	current_page = 1;
-
 	performSearch();
+});
+//Ham kiem tra co du lieu da duoc nhap
+function areInputsValid() {
+	const date = document.getElementById("date_input").value.trim();
+	const amount = document.getElementById("amount_input").value.trim();
+	const content = document.getElementById("content_input").value.trim();
+
+	return date || amount || content;
+}
+//Chuc nang tim kiem khi nhan enter
+document.addEventListener("keydown", function (event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		if (areInputsValid()) {
+			current_page = 1;
+			performSearch();
+		}
+	}
 });
 //Ham gui yeu cau tu front sang back de lay data
 function performSearch() {
@@ -335,14 +371,6 @@ function displayResults(results, totalResults, page) {
         `;
 		resultsBody.appendChild(row);
 	});
-}
-
-// Hàm highlight các phần văn bản
-function highlightText(text, searchText) {
-	if (!text || !searchText) return text || "-"; // Trả về giá trị nếu không có gì cần tìm kiếm
-
-	const regex = new RegExp(`(${searchText})`, "gi"); // Tạo biểu thức chính quy cho từ khóa
-	return text.replace(regex, `<span class="highlight">$1</span>`); // Thêm thẻ <span> với lớp highlight
 }
 const inputs = document.querySelectorAll(
 	"#date_input, #amount_input, #content_input"
