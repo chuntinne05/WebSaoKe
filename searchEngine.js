@@ -45,15 +45,11 @@ class SearchEngine {
 	async buildSearchIndex(data) {
 		return new Promise((resolve) => {
 			this.searchIndex = new Fuse(data, {
-				keys: [
-					{ name: "detail", weight: 2 },
-					{ name: "credit", weight: 1 },
-					{ name: "debit", weight: 1 },
-				],
-				threshold: 0.1,
-				distance: 50,
+				keys: [{ name: "detail" }, { name: "credit" }, { name: "debit" }],
+				threshold: 0.0,
+				distance: 10,
 				ignoreLocation: true,
-				useExtendedSearch: true,
+				useExtendedSearch: false,
 			});
 			resolve();
 		});
