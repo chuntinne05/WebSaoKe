@@ -3,7 +3,6 @@ const Fuse = require("fuse.js");
 
 class SearchEngine {
 	constructor() {
-		this.dateIndex = {};
 		this.rawData = [];
 		this.searchIndex = null;
 		this.cache = new NodeCache({
@@ -16,37 +15,19 @@ class SearchEngine {
 
 	async loadData(data) {
 		this.rawData = data;
-		await this.buildIndices(data);
-	}
-
-	async buildIndices(data) {
-		// su dung index song song
-		const promises = [this.buildDateIndex(data), this.buildSearchIndex(data)];
-
-		// wait de hoan thanh
-		return Promise.all(promises);
-	}
-
-	async buildDateIndex(data) {
-		return new Promise((resolve) => {
-			data.forEach((row) => {
-				const date = row.date_time?.split("_")[0];
-				if (date) {
-					if (!this.dateIndex[date]) {
-						this.dateIndex[date] = [];
-					}
-					this.dateIndex[date].push(row);
-				}
-			});
-			resolve();
-		});
+		await this.buildSearchIndex(data);
 	}
 
 	async buildSearchIndex(data) {
 		return new Promise((resolve) => {
-			this.searchIndex = new Fuse(data, {
-				keys: [{ name: "detail" }, { name: "credit" }, { name: "debit" }],
-				threshold: 0.0,
+			const processedData = data.map((row) => ({
+				...row,
+				searchableContent: this.createSearchableContent(row),
+			}));
+
+			this.searchIndex = new Fuse(processedData, {
+				keys: ["searchableContent"],
+				threshold: 0.0, // chinh xac tuyet doi
 				distance: 10,
 				ignoreLocation: true,
 				useExtendedSearch: false,
@@ -55,53 +36,20 @@ class SearchEngine {
 		});
 	}
 
-	searchByDate(date) {
-		return this.dateIndex[date] || [];
+	createSearchableContent(row) {
+		const searchParts = [
+			row.detail || "",
+			row.credit ? row.credit.toString() : "",
+			row.debit ? row.debit.toString() : "",
+			row.date_time ? row.date_time.split("_")[0] : "",
+		];
+		return searchParts.join(" ").toLowerCase();
 	}
 
-	searchByAmount(amount) {
-		if (!amount) return [];
-		return this.rawData.filter(
-			(row) =>
-				(row.credit && row.credit === amount) ||
-				(row.debit && row.debit === amount)
-		);
-	}
-
-	searchByDetail(content) {
-		if (!this.searchIndex || !content) return [];
-		const results = this.searchIndex.search(content);
-		return results.map((result) => result.item);
-	}
-
-	conditionalSort(results, { date, amount }) {
-		if (date && amount) return results;
-
-		let sortedResults = [...results];
-
-		if (date && !amount) {
-			return sortedResults.sort((a, b) => {
-				const amountA = (a.credit || 0) + (a.debit || 0);
-				const amountB = (b.credit || 0) + (b.debit || 0);
-				return amountA - amountB;
-			});
-		}
-
-		if (amount && !date) {
-			return sortedResults.sort((a, b) => {
-				const dateA = a.date_time?.split("_")[0] || "";
-				const dateB = b.date_time?.split("_")[0] || "";
-				return dateA.localeCompare(dateB);
-			});
-		}
-
-		return results;
-	}
-
-	search({ date, amount, content, page = 1, pageSize = 10 }) {
+	search({ content, page = 1, pageSize = 10 }) {
 		console.time("searchTime");
 
-		const cacheKey = `${date || ""}-${amount || ""}-${content || ""}-${page}`;
+		const cacheKey = `${content || ""}-${page}`;
 		if (this.cache.has(cacheKey)) {
 			console.timeEnd("searchTime");
 			return this.cache.get(cacheKey);
@@ -109,22 +57,10 @@ class SearchEngine {
 
 		let results = this.rawData;
 
-		if (date) {
-			const dateResults = this.searchByDate(date);
-			results = dateResults;
-		}
-
-		if (amount) {
-			const amountResults = this.searchByAmount(amount);
-			results = results.filter((row) => amountResults.includes(row));
-		}
-
 		if (content) {
-			const detailResults = this.searchByDetail(content);
-			results = results.filter((row) => detailResults.includes(row));
+			const searchResults = this.searchIndex.search(content);
+			results = searchResults.map((result) => result.item);
 		}
-
-		results = this.conditionalSort(results, { date, amount });
 
 		const totalResults = results.length;
 		const paginatedResults = results.slice(
@@ -136,7 +72,6 @@ class SearchEngine {
 			results: paginatedResults,
 			totalResults,
 			page,
-			sortedBy: date && !amount ? "amount" : amount && !date ? "date" : "none",
 		};
 
 		this.cache.set(cacheKey, result);

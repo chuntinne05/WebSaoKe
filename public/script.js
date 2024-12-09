@@ -18,11 +18,11 @@ search.addEventListener("click", () => {
 });
 //Hàm kiểm tra dữ liệu đã được nhập ở các ô input chưa
 function areInputsValid() {
-	const date = document.getElementById("date_input").value.trim();
-	const amount = document.getElementById("amount_input").value.trim();
+	// const date = document.getElementById("date_input").value.trim();
+	// const amount = document.getElementById("amount_input").value.trim();
 	const content = document.getElementById("content_input").value.trim();
 
-	return date || amount || content;
+	return content;
 }
 //Chức năng tìm kiếm khi nhấn enter
 document.addEventListener("keydown", function (event) {
@@ -36,20 +36,17 @@ document.addEventListener("keydown", function (event) {
 });
 //Hàm gửi yêu cầu từ front sang back
 function performSearch() {
-	const date = document.getElementById("date_input").value;
-	const amount = document.getElementById("amount_input").value;
+	// const date = document.getElementById("date_input").value;
+	// const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
 
-	document.getElementById("loading").style.display="flex";
+	document.getElementById("loading").style.display = "flex";
 	saveSearchToHistory();
 
-	fetch(
-		`/search?date=${date}&amount=${amount}&content=${content}&page=${current_page}`
-	)
-
+	fetch(`/search?content=${content}&page=${current_page}`)
 		.then((response) => response.json())
 		.then((data) => {
-			document.getElementById("loading").style.display="none";
+			document.getElementById("loading").style.display = "none";
 			if (data.error) {
 				alert("Lỗi: " + data.error);
 			} else {
@@ -61,12 +58,11 @@ function performSearch() {
 			}
 		})
 		.catch((error) => {
-			document.getElementById("loading").style.display="none";
+			document.getElementById("loading").style.display = "none";
 			console.error("Lỗi khi tìm kiếm", error);
 			alert("Đã xảy ra lỗi khi tìm kiếm!!!");
 		});
 }
-
 
 // Hàm chỉnh sửa định dạng ngày
 function formatDate(dateTimeString) {
@@ -154,7 +150,7 @@ dateInput.addEventListener("input", () => {
 	dateOptions.style.display = "none";
 });
 
-//Hàm hiện nút chuyển trang 
+//Hàm hiện nút chuyển trang
 function updatePage() {
 	prev.disabled = current_page === 1;
 	next.disabled = current_page >= Math.ceil(totalResult / pageSize);
@@ -173,7 +169,7 @@ next.addEventListener("click", () => {
 		performSearch();
 	}
 });
-//Hàm update số trang 
+//Hàm update số trang
 function updatePagination() {
 	const paginationContainer = document.getElementById("pagination");
 	paginationContainer.innerHTML = "";
@@ -233,39 +229,29 @@ window.onload = function () {
 };
 //Hàm lưu lịch sử tìm kiếm
 function saveSearchToHistory() {
-	const date = document.getElementById("date_input").value;
-	const amount = document.getElementById("amount_input").value;
+	// const date = document.getElementById("date_input").value;
+	// const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
 
-	if (!date && !amount && !content) return; 
+	if (!content) return;
 
 	let searchHistory = sessionStorage.getItem("searchHistory");
 	searchHistory = searchHistory ? JSON.parse(searchHistory) : [];
 
 	const newSearch = {
-		date,
-		amount,
 		content,
 		timestamp: new Date().toISOString(),
 	};
 
 	// Kiểm tra xem đã có tìm kiếm đó trước chưa
 	const isDuplicate = searchHistory.some(
-		(item) =>
-			item.date === newSearch.date &&
-			item.amount === newSearch.amount &&
-			item.content === newSearch.content
+		(item) => item.content === newSearch.content
 	);
 
 	if (isDuplicate) {
 		// Nếu có trùng, xóa cái cũ thêm cái mới
 		searchHistory = searchHistory.filter(
-			(item) =>
-				!(
-					item.date === newSearch.date &&
-					item.amount === newSearch.amount &&
-					item.content === newSearch.content
-				)
+			(item) => !(item.content === newSearch.content)
 		);
 	}
 	searchHistory.unshift(newSearch);
@@ -367,10 +353,10 @@ const darkModeToggle = document.getElementById("darkModeToggle");
 if (localStorage.getItem("darkMode") === "enabled") {
 	document.body.classList.add("dark-mode");
 
-	document.getElementById("header__history").classList.add("dark-mode"); 
-	document.querySelector("div.body__information").classList.add("dark-mode"); 
+	document.getElementById("header__history").classList.add("dark-mode");
+	document.querySelector("div.body__information").classList.add("dark-mode");
 
-	const elements = document.querySelectorAll(".body__search button"); 
+	const elements = document.querySelectorAll(".body__search button");
 	for (let i = 0; i < elements.length; i++)
 		elements[i].classList.add("dark-mode");
 
@@ -418,7 +404,7 @@ darkModeToggle.addEventListener("change", () => {
 		);
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.remove("dark-mode");
-		
+
 		dateOptions.classList.remove("dark-mode");
 	}
 });
@@ -438,7 +424,7 @@ let moneySortAscending = true; // Sort order for the money column
 const daySortButton = document.getElementById("daySortButton");
 const moneySortButton = document.getElementById("moneySortButton");
 
-// Chức năng sắp xếp 
+// Chức năng sắp xếp
 daySortButton.addEventListener("click", () => {
 	sortTable("day", daySortAscending);
 	updateSortButtonState(daySortButton, daySortAscending);
@@ -556,4 +542,3 @@ function exportAllResultsToPDF() {
 document
 	.getElementById("pdf-export-button")
 	.addEventListener("click", exportAllResultsToPDF);
-

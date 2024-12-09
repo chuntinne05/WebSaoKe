@@ -9,14 +9,6 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*
- Cách test : 
- bật terminal điều hướng tới file : 
- - cd LTNC
- - nodemon app.js
- - copy  : "http://localhost:1908/search?date=...&amount=...&content=...." (có thể đổi chỗ hoặc bỏ đi các trường tìm kiếm)
- */
-
 let worker;
 
 function loadWorker() {
@@ -48,16 +40,14 @@ function loadWorker() {
 }
 
 app.get("/search", (req, res) => {
-	const { date, amount, content, page = 1, pageSize = 40 } = req.query;
+	const { content, page = 1, pageSize = 40 } = req.query;
 
 	worker.postMessage({
 		type: "search",
 		payLoad: {
-			date,
-			amount: parseInt(amount, 10) || null, //chuyen thanh so nguyen tu he co so 10
 			content,
-			page: parseInt(page, 10), // neu kh co gia tri thi mac dinh page = 1
-			pageSize: parseInt(pageSize, 10), // neu kh co gia tri thi mac dinh pageSize = 20
+			page: parseInt(page, 10),
+			pageSize: parseInt(pageSize, 10),
 		},
 	});
 
