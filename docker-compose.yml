@@ -1,0 +1,7 @@
+services:
+  app:
+    image: chuntinne/hcmutsaoke:latest
+    ports:
+      - "1908:1908"
+    environment:
+      NODE_ENV: production
