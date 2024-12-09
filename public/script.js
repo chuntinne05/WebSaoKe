@@ -18,8 +18,6 @@ search.addEventListener("click", () => {
 });
 //Hàm kiểm tra dữ liệu đã được nhập ở các ô input chưa
 function areInputsValid() {
-	// const date = document.getElementById("date_input").value.trim();
-	// const amount = document.getElementById("amount_input").value.trim();
 	const content = document.getElementById("content_input").value.trim();
 
 	return content;
@@ -36,8 +34,6 @@ document.addEventListener("keydown", function (event) {
 });
 //Hàm gửi yêu cầu từ front sang back
 function performSearch() {
-	// const date = document.getElementById("date_input").value;
-	// const amount = document.getElementById("amount_input").value;
 	const content = document.getElementById("content_input").value;
 
 	document.getElementById("loading").style.display = "flex";
@@ -112,42 +108,13 @@ function displayResults(results, totalResults, page) {
 
 // Thêm sự kiện focus cho từng input
 const inputs = document.querySelectorAll(
-	"#date_input, #amount_input, #content_input"
+	"#content_input"
 );
 
 inputs.forEach((input) => {
 	input.addEventListener("focus", () => {
 		input.value = ""; // Xóa nội dung cũ
 	});
-});
-
-const dateInput = document.getElementById("date_input");
-const dateOptions = document.getElementById("date-options");
-
-//Hiển thị danh sách khi chọn
-dateInput.addEventListener("focus", () => {
-	dateOptions.style.display = "block";
-});
-
-// Ẩn danh sách khi click ngoài
-document.addEventListener("click", (e) => {
-	if (!e.target.closest(".date-picker-container")) {
-		dateOptions.style.display = "none";
-	}
-});
-
-// Xử lý sự kiện click chọn ngày
-dateOptions.addEventListener("click", (e) => {
-	const selectedDate = e.target.getAttribute("data-date");
-	if (selectedDate) {
-		dateInput.value = selectedDate;
-		dateOptions.style.display = "none"; // Ẩn danh sách sau khi chọn
-	}
-});
-// Cho phép xóa và nhập thủ công
-dateInput.addEventListener("input", () => {
-	// Nếu người dùng nhập mới, không làm gì thêm
-	dateOptions.style.display = "none";
 });
 
 //Hàm hiện nút chuyển trang
@@ -336,8 +303,6 @@ function showHistoryModal() {
 	historyItems.forEach((item) => {
 		item.onclick = () => {
 			const searchData = JSON.parse(item.dataset.search);
-			document.getElementById("date_input").value = searchData.date || "";
-			document.getElementById("amount_input").value = searchData.amount || "";
 			document.getElementById("content_input").value = searchData.content || "";
 			document.body.removeChild(modalContainer);
 			performSearch();
@@ -360,8 +325,6 @@ if (localStorage.getItem("darkMode") === "enabled") {
 	for (let i = 0; i < elements.length; i++)
 		elements[i].classList.add("dark-mode");
 
-	dateOptions.classList.add("dark-mode");
-
 	darkModeToggle.checked = true;
 }
 darkModeToggle.addEventListener("change", () => {
@@ -383,7 +346,6 @@ darkModeToggle.addEventListener("change", () => {
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.add("dark-mode");
 
-		dateOptions.classList.add("dark-mode");
 	} else {
 		document.body.classList.remove("dark-mode");
 		localStorage.setItem("darkMode", "disabled");
@@ -405,7 +367,6 @@ darkModeToggle.addEventListener("change", () => {
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.remove("dark-mode");
 
-		dateOptions.classList.remove("dark-mode");
 	}
 });
 
@@ -487,9 +448,7 @@ function updateSortButtonState(button, ascending) {
 //----------Chức năng xuất file PDF----------//
 function exportAllResultsToPDF() {
 	fetch(
-		`/search?date=${document.getElementById("date_input").value}&amount=${
-			document.getElementById("amount_input").value
-		}&content=${
+		`/search?date=${
 			document.getElementById("content_input").value
 		}&page=1&pageSize=${totalResult}`
 	)
