@@ -32,7 +32,7 @@ async function loadData(csvFilePath) {
 
 		Papa.parse(csvText, {
 			header: true, // dong dau tien cua file csv se duoc doc la tieu de (dung de tao khoa)
-			dynamicTyping: true,// auto chuyen kieu du lieu
+			dynamicTyping: true, // auto chuyen kieu du lieu
 			complete: function (results) {
 				searchEngine.loadData(results.data);
 				parentPort.postMessage({ type: "dataLoaded" });
