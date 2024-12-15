@@ -39,7 +39,7 @@ function performSearch() {
 	document.getElementById("loading").style.display = "flex";
 	saveSearchToHistory();
 
-	fetch(`/search?content=${content}&page=${current_page}`)
+	fetch(`/query?q=${content}&page=${current_page}`)
 		.then((response) => response.json())
 		.then((data) => {
 			document.getElementById("loading").style.display = "none";
@@ -107,9 +107,7 @@ function displayResults(results, totalResults, page) {
 }
 
 // Thêm sự kiện focus cho từng input
-const inputs = document.querySelectorAll(
-	"#content_input"
-);
+const inputs = document.querySelectorAll("#content_input");
 
 inputs.forEach((input) => {
 	input.addEventListener("focus", () => {
@@ -345,7 +343,6 @@ darkModeToggle.addEventListener("change", () => {
 		const elements = document.querySelectorAll(".body__search button");
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.add("dark-mode");
-
 	} else {
 		document.body.classList.remove("dark-mode");
 		localStorage.setItem("darkMode", "disabled");
@@ -366,7 +363,6 @@ darkModeToggle.addEventListener("change", () => {
 		);
 		for (let i = 0; i < elements.length; i++)
 			elements[i].classList.remove("dark-mode");
-
 	}
 });
 
@@ -448,7 +444,7 @@ function updateSortButtonState(button, ascending) {
 //----------Chức năng xuất file PDF----------//
 function exportAllResultsToPDF() {
 	fetch(
-		`/search?date=${
+		`/query?q=${
 			document.getElementById("content_input").value
 		}&page=1&pageSize=${totalResult}`
 	)

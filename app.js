@@ -39,8 +39,8 @@ function loadWorker() {
 	});
 }
 
-app.get("/search", (req, res) => {
-	const { content, page = 1, pageSize = 40 } = req.query;
+app.get("/query", (req, res) => {
+	const { q : content, page = 1, pageSize = 40 } = req.query;
 
 	worker.postMessage({
 		type: "search",
